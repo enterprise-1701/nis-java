@@ -19,6 +19,7 @@ import org.testng.annotations.Test;
 
 import com.cubic.nisjava.apiobjects.WSCreateSessionResponse;
 import com.cubic.nisjava.constants.AppConstants;
+import com.cubic.nisjava.constants.NISGlobals;
 import com.cubic.nisjava.dataproviders.NISDataProviderNEXTLINK_v1;
 import com.cubic.nisjava.apiobjects.WSCardSummaryResponse;
 import com.cubic.vpos.trm.TrmCommands;
@@ -228,16 +229,13 @@ public class CardSummaryTests extends RESTEngine {
 	 */
 	public Hashtable<String, String> buildHeaders(Hashtable<String, String> data) {
 		Hashtable<String, String> headers = new Hashtable<String, String>();
-		String deviceId = data.get("DEVICE_ID");
-		String appId = data.get("APP_ID");
-		String format = "{ \"uid\" : \"0A1EBC2F-5CBE-4B0D-8FA0-24902E7E773D\",  \"device\" : \"%s\",  \"appId\" : \"%s\" })";
-		String xCubHdr = String.format(format, deviceId, appId);
-		headers.put("x-cub-hdr", xCubHdr);
-		headers.put("content-type", "application/json");
-		String authorization = data.get("AUTHORIZATION");
-		headers.put("authorization", authorization);
-		headers.put("cookie",
-				"JSESSIONID=A37F17266E5C6245E0B79D439BF253E9; ncsPageRef=1510607216399; ApplicationGatewayAffinity=1921a547eeb3ca96d7fc0b94cd54a65c6fe0ece336f8839dbe7d892b59c0482f; ApplicationGatewayAffinity=1921a547eeb3ca96d7fc0b94cd54a65c6fe0ece336f8839dbe7d892b59c0482f; ApplicationGatewayAffinity=1921a547eeb3ca96d7fc0b94cd54a65c6fe0ece336f8839dbe7d892b59c0482f; ApplicationGatewayAffinity=1921a547eeb3ca96d7fc0b94cd54a65c6fe0ece336f8839dbe7d892b59c0482f; ApplicationGatewayAffinity=1921a547eeb3ca96d7fc0b94cd54a65c6fe0ece336f8839dbe7d892b59c0482f; ApplicationGatewayAffinity=1921a547eeb3ca96d7fc0b94cd54a65c6fe0ece336f8839dbe7d892b59c0482f; ApplicationGatewayAffinity=1921a547eeb3ca96d7fc0b94cd54a65c6fe0ece336f8839dbe7d892b59c0482f; ApplicationGatewayAffinity=1921a547eeb3ca96d7fc0b94cd54a65c6fe0ece336f8839dbe7d892b59c0482f; ApplicationGatewayAffinity=1921a547eeb3ca96d7fc0b94cd54a65c6fe0ece336f8839dbe7d892b59c0482f; ApplicationGatewayAffinity=1921a547eeb3ca96d7fc0b94cd54a65c6fe0ece336f8839dbe7d892b59c0482f; ApplicationGatewayAffinity=1921a547eeb3ca96d7fc0b94cd54a65c6fe0ece336f8839dbe7d892b59c0482f; ApplicationGatewayAffinity=1921a547eeb3ca96d7fc0b94cd54a65c6fe0ece336f8839dbe7d892b59c0482f; ApplicationGatewayAffinity=1921a547eeb3ca96d7fc0b94cd54a65c6fe0ece336f8839dbe7d892b59c0482f; ApplicationGatewayAffinity=1921a547eeb3ca96d7fc0b94cd54a65c6fe0ece336f8839dbe7d892b59c0482f; ApplicationGatewayAffinity=1921a547eeb3ca96d7fc0b94cd54a65c6fe0ece336f8839dbe7d892b59c0482f; ApplicationGatewayAffinity=1921a547eeb3ca96d7fc0b94cd54a65c6fe0ece336f8839dbe7d892b59c0482f");
+		String deviceId = data.get(NISGlobals.NIS_DEVICE_ID_NAME);
+		String appId = data.get(NISGlobals.NIS_APPID_NAME);
+		String xCubHdr = String.format(NISGlobals.NIS_XCUBHDR_ALT_FMT, deviceId, appId);
+		headers.put(NISGlobals.NIS_XCUBHDR_NAME, xCubHdr);
+		headers.put(NISGlobals.NIS_CONTENT_TYPE, NISGlobals.NIS_CONTENT_TYPE_JSON);
+		headers.put(NISGlobals.NIS_AUTHORIZATION_HDR_NAME, NISGlobals.NIS_AUTHORIZATION_HDR_VALUE);
+		headers.put(NISGlobals.NIS_COOKIE_NAME, NISGlobals.NIS_COOKIE_VALUE); 
 		return headers;
 	}
 
@@ -249,14 +247,12 @@ public class CardSummaryTests extends RESTEngine {
 	 * @return the URL of the Create Session endpoint
 	 */
 	public String buildCreateSessionURL(Hashtable<String, String> data) {
-		String cscUID = data.get("CSC_UID");
-		String deviceId = data.get("DEVICE_ID");
-		String host = data.get("HOST");
-		String sfmt = data.get("CREATE_SESSION_URL");
+		String cscUID = data.get(NISGlobals.NIS_CSC_UID_NAME);
+		String deviceId = data.get(NISGlobals.NIS_DEVICE_ID_NAME);
+		String host = data.get(NISGlobals.NIS_HOST_NAME);
+		String sfmt = data.get(NISGlobals.NIS_CREATE_SESSION_URL_NAME);
 		String sURL = String.format(sfmt, host, deviceId, cscUID);
 		return sURL;
-		// return
-		// "https://lab7319.ctsservice.com/nis/nextlink/v1/session?region=2&deviceId=POI65001&cscUID=045d54223e2280";
 	}
 
 	/**
@@ -267,11 +263,10 @@ public class CardSummaryTests extends RESTEngine {
 	 * @return the URL of the Card Summary endpoint
 	 */
 	public String buildCardSummaryURL(Hashtable<String, String> data) {
-		String host = data.get("HOST");
-		String sfmt = data.get("CARD_SUMMARY_URL");
+		String host = data.get(NISGlobals.NIS_HOST_NAME);
+		String sfmt = data.get(NISGlobals.NIS_CARD_SUMMARY_URL_NAME);
 		String sURL = String.format(sfmt, host);
 		return sURL;
-		// return "https://lab7319.ctsservice.com/nis/nextlink/v1/card/summary";
 	}
 
 	/**
@@ -282,11 +277,10 @@ public class CardSummaryTests extends RESTEngine {
 	 * @return the URL of the Delete Session endpoint
 	 */
 	public String buildDeleteSessionURL(Hashtable<String, String> data) {
-		String host = data.get("HOST");
-		String sfmt = data.get("DELETE_SESSION_URL");
+		String host = data.get(NISGlobals.NIS_HOST_NAME);
+		String sfmt = data.get(NISGlobals.NIS_DELETE_SESSION_URL_NAME);
 		String sURL = String.format(sfmt, host);
 		return sURL;
-		// return "https://lab7319.ctsservice.com/nis/nextlink/v1/session";
 	}
 
 	/**
@@ -297,7 +291,7 @@ public class CardSummaryTests extends RESTEngine {
 	 * @return the request body of the card/summary operation
 	 */
 	public String buildCardSummaryRequestBody(String data) {
-		return String.format("{ \"terminalResponses\":\"%s\" }", data);
+		return String.format(NISGlobals.NIS_TERMINAL_RESPONSES_FMT, data);
 	}
 
 	/**
@@ -322,13 +316,13 @@ public class CardSummaryTests extends RESTEngine {
 
 			Set<Entry<String, String>> set = headers.entrySet();
 			for (Entry<String, String> entry : set) {
-				String skey = "" + entry.getKey();
-				String sval = "" + entry.getValue();
+				String skey = entry.getKey();
+				String sval = entry.getValue();
 
 				httpCon.setRequestProperty(skey, sval);
 			}
 
-			httpCon.setRequestMethod("DELETE");
+			httpCon.setRequestMethod(NISGlobals.NIS_DELETE_NAME);
 			OutputStreamWriter out = new OutputStreamWriter(httpCon.getOutputStream());
 
 			BufferedWriter bw = new BufferedWriter(out);
@@ -347,6 +341,7 @@ public class CardSummaryTests extends RESTEngine {
 			LOG.info("response code=" + httpCon.getResponseCode());
 			LOG.info("response msg=" + httpCon.getResponseMessage());
 			LOG.info(sb.toString());
+			
 		} catch (IOException e) {
 			StringWriter sw = new StringWriter();
 			PrintWriter pw = new PrintWriter(sw);

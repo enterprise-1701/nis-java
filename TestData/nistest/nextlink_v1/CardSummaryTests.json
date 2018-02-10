@@ -5,7 +5,6 @@
 			"RunMode": "Y",
 			"TestCase_Description": "WEB001:cardSummaryTest",	
 			"APP_ID":"abc",
-			"AUTHORIZATION":"Basic d2VxOnBhg3N5b1Bk",
 			"CSC_UID":"045d54223e2280",
 			"DEVICE_ID":"POI65001",
 			"HOST":"lab7319.ctsservice.com",
