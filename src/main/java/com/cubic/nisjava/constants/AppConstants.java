@@ -26,4 +26,6 @@ public interface AppConstants {
     
     // NIS Funding source
     String NIS_TEST_DATA_FOLDER_FUNDING_SOURCE = CONFIG_PROPERTIES.get("nisTestDataFolderFundingSource");
+    
+    String NIS_TEST_DATA_FOLDER_NEXTLINK_v1 = CONFIG_PROPERTIES.get("nisTestDataFoldernextlink_v1");
 }
