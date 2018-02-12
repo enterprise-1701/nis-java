@@ -125,6 +125,16 @@
   		<artifactId>BackOfficeJava</artifactId>
   		<version>1.0.1</version>
   	</dependency>
+  	<dependency>
+  		<groupId>com.cubic.vpos</groupId>
+  		<artifactId>vpos-trm-lib</artifactId>
+  		<version>0.1.42</version>
+  	</dependency>	
+  	<dependency>
+  		<groupId>com.cubic</groupId>
+  		<artifactId>devicecommons</artifactId>
+  		<version>0.0.34</version>
+  	</dependency>  	
   </dependencies>
   
   <build>
