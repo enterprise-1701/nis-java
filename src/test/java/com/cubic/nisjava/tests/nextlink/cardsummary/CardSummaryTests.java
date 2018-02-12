@@ -227,7 +227,7 @@ public class CardSummaryTests extends RESTEngine {
 	 *            The Test Data
 	 * @return A Hashtable<String,String> instance containing the headers
 	 */
-	public Hashtable<String, String> buildHeaders(Hashtable<String, String> data) {
+	private Hashtable<String, String> buildHeaders(Hashtable<String, String> data) {
 		Hashtable<String, String> headers = new Hashtable<String, String>();
 		String deviceId = data.get(NISGlobals.NIS_DEVICE_ID_NAME);
 		String appId = data.get(NISGlobals.NIS_APPID_NAME);
@@ -246,7 +246,7 @@ public class CardSummaryTests extends RESTEngine {
 	 *            The Test Data
 	 * @return the URL of the Create Session endpoint
 	 */
-	public String buildCreateSessionURL(Hashtable<String, String> data) {
+	private String buildCreateSessionURL(Hashtable<String, String> data) {
 		String cscUID = data.get(NISGlobals.NIS_CSC_UID_NAME);
 		String deviceId = data.get(NISGlobals.NIS_DEVICE_ID_NAME);
 		String host = data.get(NISGlobals.NIS_HOST_NAME);
@@ -262,7 +262,7 @@ public class CardSummaryTests extends RESTEngine {
 	 *            The Test Data
 	 * @return the URL of the Card Summary endpoint
 	 */
-	public String buildCardSummaryURL(Hashtable<String, String> data) {
+	private String buildCardSummaryURL(Hashtable<String, String> data) {
 		String host = data.get(NISGlobals.NIS_HOST_NAME);
 		String sfmt = data.get(NISGlobals.NIS_CARD_SUMMARY_URL_NAME);
 		String sURL = String.format(sfmt, host);
@@ -276,7 +276,7 @@ public class CardSummaryTests extends RESTEngine {
 	 *            The Test Data
 	 * @return the URL of the Delete Session endpoint
 	 */
-	public String buildDeleteSessionURL(Hashtable<String, String> data) {
+	private String buildDeleteSessionURL(Hashtable<String, String> data) {
 		String host = data.get(NISGlobals.NIS_HOST_NAME);
 		String sfmt = data.get(NISGlobals.NIS_DELETE_SESSION_URL_NAME);
 		String sURL = String.format(sfmt, host);
@@ -290,7 +290,7 @@ public class CardSummaryTests extends RESTEngine {
 	 *            The Test Data
 	 * @return the request body of the card/summary operation
 	 */
-	public String buildCardSummaryRequestBody(String data) {
+	private String buildCardSummaryRequestBody(String data) {
 		return String.format(NISGlobals.NIS_TERMINAL_RESPONSES_FMT, data);
 	}
 
@@ -306,7 +306,7 @@ public class CardSummaryTests extends RESTEngine {
 	 *            The Header Set of the operation
 	 * @return The response from the endpoint
 	 */
-	public String deleteClientResponse(String sURL, String requestBody, Hashtable<String, String> headers) {
+	private String deleteClientResponse(String sURL, String requestBody, Hashtable<String, String> headers) {
 
 		StringBuilder sb = new StringBuilder();
 		try {
