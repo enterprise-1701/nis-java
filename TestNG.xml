@@ -4,6 +4,7 @@
 	<test name="Test">
 		<classes>
 		    <class name="com.cubic.nisjava.tests.ViewNotificationHistory_ByNotificationIdTest" />
+		    <class name="com.cubic.nisjava.tests.nextlink.cardsummary.CardSummaryTests" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->
