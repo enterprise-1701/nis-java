@@ -1,17 +1,7 @@
 package com.cubic.nisjava.tests.nextlink.cardsummary;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Hashtable;
-import java.util.Set;
-import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 import org.testng.ITestContext;
@@ -21,6 +11,7 @@ import com.cubic.nisjava.apiobjects.WSCreateSessionResponse;
 import com.cubic.nisjava.constants.AppConstants;
 import com.cubic.nisjava.constants.NISGlobals;
 import com.cubic.nisjava.dataproviders.NISDataProviderNEXTLINK_v1;
+import com.cubic.nisjava.utils.NextLinkBase;
 import com.cubic.nisjava.apiobjects.WSCardSummaryResponse;
 import com.cubic.vpos.trm.TrmCommands;
 import com.cubic.vpos.trm.TrmResponses;
@@ -30,12 +21,24 @@ import com.google.gson.Gson;
 import com.sun.jersey.api.client.ClientResponse;
 import com.cubic.accelerators.RESTActions;
 import com.cubic.accelerators.RESTConstants;
-import com.cubic.accelerators.RESTEngine;
 
-public class CardSummaryTests extends RESTEngine {
+/**
+ * Get a Card/Summary 
+ * 
+ * @author 203402
+ *
+ */
+public class CardSummaryTests extends NextLinkBase {
 
 	private final Logger LOG = Logger.getLogger(this.getClass().getName());
 
+	/**
+	 * Get a series of Card/Summary response.
+	 * 
+	 * @param context  The TestNG context object
+	 * @param data
+	 * @throws Throwable
+	 */
 	@Test(dataProvider = AppConstants.DATA_PROVIDER, dataProviderClass = NISDataProviderNEXTLINK_v1.class)
 	public void cardSummaryTest(ITestContext context, Hashtable<String, String> data) throws Throwable {
 		String testCaseName = data.get("TestCase_Description");
@@ -214,48 +217,6 @@ public class CardSummaryTests extends RESTEngine {
 	}
 
 	/**
-	 * Build the set of headers used to contact NextLink.
-	 * 
-	 * <PRE>
-	 * x-cub-hdr - built using the DEVICE_ID and APP_ID data items
-	 * content-type
-	 * authorization
-	 * cookie
-	 * </PRE>
-	 * 
-	 * @param data
-	 *            The Test Data
-	 * @return A Hashtable<String,String> instance containing the headers
-	 */
-	private Hashtable<String, String> buildHeaders(Hashtable<String, String> data) {
-		Hashtable<String, String> headers = new Hashtable<String, String>();
-		String deviceId = data.get(NISGlobals.NIS_DEVICE_ID_NAME);
-		String appId = data.get(NISGlobals.NIS_APPID_NAME);
-		String xCubHdr = String.format(NISGlobals.NIS_XCUBHDR_ALT_FMT, deviceId, appId);
-		headers.put(NISGlobals.NIS_XCUBHDR_NAME, xCubHdr);
-		headers.put(NISGlobals.NIS_CONTENT_TYPE, NISGlobals.NIS_CONTENT_TYPE_JSON);
-		headers.put(NISGlobals.NIS_AUTHORIZATION_HDR_NAME, NISGlobals.NIS_AUTHORIZATION_HDR_VALUE);
-		headers.put(NISGlobals.NIS_COOKIE_NAME, NISGlobals.NIS_COOKIE_VALUE); 
-		return headers;
-	}
-
-	/**
-	 * Build the URL of the Create Session endpoint.
-	 * 
-	 * @param data
-	 *            The Test Data
-	 * @return the URL of the Create Session endpoint
-	 */
-	private String buildCreateSessionURL(Hashtable<String, String> data) {
-		String cscUID = data.get(NISGlobals.NIS_CSC_UID_NAME);
-		String deviceId = data.get(NISGlobals.NIS_DEVICE_ID_NAME);
-		String host = data.get(NISGlobals.NIS_HOST_NAME);
-		String sfmt = data.get(NISGlobals.NIS_CREATE_SESSION_URL_NAME);
-		String sURL = String.format(sfmt, host, deviceId, cscUID);
-		return sURL;
-	}
-
-	/**
 	 * Build the URL of the Card Summary endpoint.
 	 * 
 	 * @param data
@@ -269,86 +230,4 @@ public class CardSummaryTests extends RESTEngine {
 		return sURL;
 	}
 
-	/**
-	 * Build the URL of the Delete Session endpoint.
-	 * 
-	 * @param data
-	 *            The Test Data
-	 * @return the URL of the Delete Session endpoint
-	 */
-	private String buildDeleteSessionURL(Hashtable<String, String> data) {
-		String host = data.get(NISGlobals.NIS_HOST_NAME);
-		String sfmt = data.get(NISGlobals.NIS_DELETE_SESSION_URL_NAME);
-		String sURL = String.format(sfmt, host);
-		return sURL;
-	}
-
-	/**
-	 * Build the request body of the card/summary operation.
-	 * 
-	 * @param data
-	 *            The Test Data
-	 * @return the request body of the card/summary operation
-	 */
-	private String buildCardSummaryRequestBody(String data) {
-		return String.format(NISGlobals.NIS_TERMINAL_RESPONSES_FMT, data);
-	}
-
-	/**
-	 * Had to implement this method because the RestActions alternative doesn't
-	 * take a request body, which is required.
-	 * 
-	 * @param sURL
-	 *            The URL of the Delete Session endpoint, in String form
-	 * @param requestBody
-	 *            The Request Body of the operation
-	 * @param headers
-	 *            The Header Set of the operation
-	 * @return The response from the endpoint
-	 */
-	private String deleteClientResponse(String sURL, String requestBody, Hashtable<String, String> headers) {
-
-		StringBuilder sb = new StringBuilder();
-		try {
-			URL url = new URL(sURL);
-			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
-			httpCon.setDoOutput(true);
-
-			Set<Entry<String, String>> set = headers.entrySet();
-			for (Entry<String, String> entry : set) {
-				String skey = entry.getKey();
-				String sval = entry.getValue();
-
-				httpCon.setRequestProperty(skey, sval);
-			}
-
-			httpCon.setRequestMethod(NISGlobals.NIS_DELETE_NAME);
-			OutputStreamWriter out = new OutputStreamWriter(httpCon.getOutputStream());
-
-			BufferedWriter bw = new BufferedWriter(out);
-			PrintWriter pw = new PrintWriter(bw);
-			pw.println(requestBody);
-			pw.flush();
-			out.close();
-			httpCon.connect();
-
-			InputStreamReader isr = new InputStreamReader(httpCon.getInputStream());
-			BufferedReader br = new BufferedReader(isr);
-			for (String line = null; null != (line = br.readLine());) {
-				sb.append(line);
-			}
-
-			LOG.info("response code=" + httpCon.getResponseCode());
-			LOG.info("response msg=" + httpCon.getResponseMessage());
-			LOG.info(sb.toString());
-			
-		} catch (IOException e) {
-			StringWriter sw = new StringWriter();
-			PrintWriter pw = new PrintWriter(sw);
-			pw.println(e.getMessage());
-			e.printStackTrace(pw);
-			LOG.info(sw.toString());
-		}
-		return sb.toString();
-	}
 }

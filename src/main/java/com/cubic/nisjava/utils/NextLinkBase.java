@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,6 +18,12 @@ import org.apache.log4j.Logger;
 import com.cubic.accelerators.RESTEngine;
 import com.cubic.nisjava.constants.NISGlobals;
 
+/**
+ * Base class for the NextLink series of test classes.
+ * 
+ * @author 203402
+ *
+ */
 public class NextLinkBase extends RESTEngine {
 
 	private final Logger LOG = Logger.getLogger(this.getClass().getName());	
@@ -79,10 +84,29 @@ public class NextLinkBase extends RESTEngine {
 		return sURL;
 	}	
 	
+	/**
+	 * Build the Card Summary request body.
+	 * 
+	 * { "terminalResponses":"XYZ" }
+	 * 
+	 * @param data  The test data
+	 * @return the Card Summary request body
+	 */
 	protected String buildCardSummaryRequestBody(String data) {
 		return String.format( "{ \"terminalResponses\":\"%s\" }", data );
 	}
 	
+	/**
+	 * Send a DELETE HTTP request, with the specified request body.
+	 * 
+	 * Had to implement this method because the RestActions alternative doesn't
+	 * take a request body, which is required.
+	 * 
+	 * @param sURL  The URL to call
+	 * @param requestBody  The request body to send
+	 * @param headers  The headers
+	 * @return The response body
+	 */
 	protected String deleteClientResponse(String sURL, String requestBody, Hashtable<String,String> headers) {
 		URL url;
 		StringBuilder sb = new StringBuilder();
@@ -120,11 +144,9 @@ public class NextLinkBase extends RESTEngine {
 			LOG.info( "response msg  =" + httpCon.getResponseMessage() );
 			LOG.info( sb.toString() );
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.error( e.toString(), e );
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.error( e.toString(), e );
 		}
 		return sb.toString();
 	}
