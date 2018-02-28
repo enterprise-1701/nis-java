@@ -28,6 +28,8 @@ public class ProductCatalogNewTests extends RESTEngine {
 	/**
 	 * Get the New Product Catalog.
 	 * 
+	 * testRailId: 428539
+	 * 
 	 * @param context
 	 *            The TestNG context object
 	 * @param data

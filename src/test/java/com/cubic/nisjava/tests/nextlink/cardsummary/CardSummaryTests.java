@@ -35,6 +35,8 @@ public class CardSummaryTests extends NextLinkBase {
 	/**
 	 * Get a series of Card/Summary response.
 	 * 
+	 * testRailId: 428535
+	 * 
 	 * @param context  The TestNG context object
 	 * @param data
 	 * @throws Throwable

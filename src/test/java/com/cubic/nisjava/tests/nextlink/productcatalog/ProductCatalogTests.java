@@ -30,6 +30,8 @@ public class ProductCatalogTests extends NextLinkBase {
 	/**
 	 * Get the Product Catalog for a given card.
 	 * 
+	 * testRailId: 428537
+	 * 
 	 * @param context
 	 *            The TestNG context object
 	 * @param data

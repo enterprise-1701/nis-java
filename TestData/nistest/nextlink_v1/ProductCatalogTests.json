@@ -3,7 +3,7 @@
 	[
 		{
 			"RunMode": "Y",
-			"TestCase_Description": "WEB001:getProductCatalog",	
+			"TestCase_Description": "428537:getProductCatalog",	
 			"APP_ID":"abc",
 			"CSC_UID":"0468742a2d4480",
 			"DEVICE_ID":"POI65001",
