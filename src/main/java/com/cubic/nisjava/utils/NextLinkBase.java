@@ -108,8 +108,12 @@ public class NextLinkBase extends RESTEngine {
 	 * @return The response body
 	 */
 	protected String deleteClientResponse(String sURL, String requestBody, Hashtable<String,String> headers) {
-		URL url;
+		URL url = null;
 		StringBuilder sb = new StringBuilder();
+		InputStreamReader isr = null;
+		OutputStreamWriter out = null;
+		BufferedWriter bw = null;
+		BufferedReader br = null;
 		try {
 			url = new URL( sURL );
 			HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
@@ -123,19 +127,18 @@ public class NextLinkBase extends RESTEngine {
 			}
 			
 			httpCon.setRequestMethod("DELETE");
-			OutputStreamWriter out = new OutputStreamWriter(
+			out = new OutputStreamWriter(
 			                httpCon.getOutputStream());
 			
-			BufferedWriter bw = new BufferedWriter( out );
+			bw = new BufferedWriter( out );
 			PrintWriter pw = new PrintWriter( bw );
 			pw.println( requestBody );
 			pw.flush();
-			out.close();
+			
 			httpCon.connect();
 			
-			
-			InputStreamReader isr = new InputStreamReader( httpCon.getInputStream() );
-			BufferedReader br = new BufferedReader( isr );
+			isr = new InputStreamReader( httpCon.getInputStream() );
+			br = new BufferedReader( isr );
 			for ( String line = null; null != ( line = br.readLine() ); ) {
 				sb.append( line );
 			}
@@ -147,6 +150,35 @@ public class NextLinkBase extends RESTEngine {
 			LOG.error( e.toString(), e );
 		} catch (IOException e) {
 			LOG.error( e.toString(), e );
+		} finally {
+			if ( bw != null ) {
+				try {
+					bw.close();
+				} catch (IOException e) {
+					LOG.error( e.toString(), e );
+				}
+			}
+			if ( br != null ) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					LOG.error( e.toString(), e );
+				}
+			}
+			if ( null != isr ) {
+				try {
+					isr.close();
+				} catch (IOException e) {
+					LOG.error( e.toString(), e );
+				}
+			}
+			if ( null != out ) {
+				try {
+					out.close();
+				} catch (IOException e) {
+					LOG.error( e.toString(), e );
+				}
+			}
 		}
 		return sb.toString();
 	}
