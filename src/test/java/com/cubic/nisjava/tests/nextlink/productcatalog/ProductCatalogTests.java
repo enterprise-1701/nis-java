@@ -1,4 +1,4 @@
-package com.cubic.nisjava.tests.nextlink.cardsummary;
+package com.cubic.nisjava.tests.nextlink.productcatalog;
 
 import java.net.HttpURLConnection;
 import java.util.Hashtable;
@@ -7,52 +7,51 @@ import org.apache.log4j.Logger;
 import org.testng.ITestContext;
 import org.testng.annotations.Test;
 
-import com.cubic.nisjava.apiobjects.WSCreateSessionResponse;
+import com.cubic.accelerators.RESTActions;
+import com.cubic.accelerators.RESTConstants;
 import com.cubic.nisjava.constants.AppConstants;
-import com.cubic.nisjava.constants.NISGlobals;
 import com.cubic.nisjava.dataproviders.NISDataProviderNEXTLINK_v1;
 import com.cubic.nisjava.utils.NextLinkBase;
-import com.cubic.nisjava.apiobjects.WSCardSummaryResponse;
+import com.cubic.nisjava.apiobjects.WSCatalogContainer;
+import com.cubic.nisjava.apiobjects.WSProduct;
+import com.cubic.nisjava.apiobjects.WSStoredValue;
 import com.cubic.vpos.trm.TrmCommands;
 import com.cubic.vpos.trm.TrmResponses;
 import com.cubic.vpos.trm.mock.MockRISCardReader;
 import com.cubic.vpos.trm.mock.MockedTerminalProxy;
+import com.cubic.nisjava.apiobjects.WSCreateSessionResponse;
 import com.google.gson.Gson;
 import com.sun.jersey.api.client.ClientResponse;
-import com.cubic.accelerators.RESTActions;
-import com.cubic.accelerators.RESTConstants;
 
-/**
- * Get a Card/Summary 
- * 
- * @author 203402
- *
- */
-public class CardSummaryTests extends NextLinkBase {
+public class ProductCatalogTests extends NextLinkBase {
 
 	private final Logger LOG = Logger.getLogger(this.getClass().getName());
 
 	/**
-	 * Get a series of Card/Summary response.
+	 * Get the Product Catalog for a given card.
 	 * 
-	 * testRailId: 428535
+	 * testRailId: 428537
 	 * 
-	 * @param context  The TestNG context object
+	 * @param context
+	 *            The TestNG context object
 	 * @param data
+	 *            The test data
 	 * @throws Throwable
+	 *             Thrown if something goes wrong
 	 */
 	@Test(dataProvider = AppConstants.DATA_PROVIDER, dataProviderClass = NISDataProviderNEXTLINK_v1.class)
-	public void cardSummaryTest(ITestContext context, Hashtable<String, String> data) throws Throwable {
+	public void getProductCatalog(ITestContext context, Hashtable<String, String> data) throws Throwable {
 		String testCaseName = data.get("TestCase_Description");
 		LOG.info("TestCase_Description=" + testCaseName);
 
 		try {
-			RESTActions restActions = setupAutomationTest(context, testCaseName);
-
 			// get headers
 			Hashtable<String, String> headers = buildHeaders(data);
+
 			// build create session URL
 			String createSessionURL = buildCreateSessionURL(data);
+
+			RESTActions restActions = setupAutomationTest(context, testCaseName);
 
 			Hashtable<String, String> urlQueryParameters = new Hashtable<String, String>();
 
@@ -83,11 +82,11 @@ public class CardSummaryTests extends NextLinkBase {
 			String trmResponsesStr = responseObj.getResult().getTerminalCommands();
 			LOG.info("terminalCommands=" + trmResponsesStr);
 
-			// == do the card/summary operations
+			// do the card/summary operations
 			headers.put("x-cub-sessionid", sessionId);
 
-			// build the card/summary URL
-			String sCardSummaryURL = buildCardSummaryURL(data);
+			// build the product/catalog URL
+			String surl = "https://lab7319.ctsservice.com/nis/nextlink/v1/card/productcatalog";
 
 			// prepare the terminal commands
 			TrmCommands trmCommands = TrmCommands.fromString(trmResponsesStr);
@@ -100,11 +99,17 @@ public class CardSummaryTests extends NextLinkBase {
 			TrmResponses trmResponses = mockedTerminalProxy.executeCommandsOnReader(trmCommands);
 			trmResponsesStr = trmResponses.toString();
 
-			String cardSummaryRequestBody = buildCardSummaryRequestBody(trmResponsesStr);
+			LOG.info("trmResponsesStr=" + trmResponsesStr);
 
-			clientResponse = restActions.postClientResponse(sCardSummaryURL, cardSummaryRequestBody, headers,
+			// ==
+
+			String format = "{ \"terminalResponses\":\"%s\" }";
+			String productCatalogRequestBody = String.format(format, trmResponsesStr);
+
+			clientResponse = restActions.postClientResponse(surl, productCatalogRequestBody, headers,
 					urlQueryParameters, RESTConstants.APPLICATION_JSON);
 
+			// Verify HTTP response code
 			status = clientResponse.getStatus();
 			msg = "WRONG HTTP RESPONSE CODE - EXPECTED 200, FOUND " + status;
 			restActions.assertTrue(status == HttpURLConnection.HTTP_OK, msg);
@@ -127,9 +132,9 @@ public class CardSummaryTests extends NextLinkBase {
 				trmResponses = mockedTerminalProxy.executeCommandsOnReader(trmCommands);
 				trmResponsesStr = trmResponses.toString();
 
-				cardSummaryRequestBody = buildCardSummaryRequestBody(trmResponsesStr);
+				productCatalogRequestBody = String.format(format, trmResponsesStr);
 
-				clientResponse = restActions.postClientResponse(sCardSummaryURL, cardSummaryRequestBody, headers,
+				clientResponse = restActions.postClientResponse(surl, productCatalogRequestBody, headers,
 						urlQueryParameters, RESTConstants.APPLICATION_JSON);
 
 				status = clientResponse.getStatus();
@@ -138,7 +143,6 @@ public class CardSummaryTests extends NextLinkBase {
 
 				response = clientResponse.getEntity(String.class);
 				LOG.info(response);
-
 				responseObj = gson.fromJson(response, WSCreateSessionResponse.class);
 
 				if ("OK".equals(responseObj.getResult().getResponseCode())) {
@@ -148,68 +152,84 @@ public class CardSummaryTests extends NextLinkBase {
 				trmResponsesStr = responseObj.getResult().getTerminalCommands();
 				LOG.info("terminalCommands=" + trmResponsesStr);
 
-				// } while( n++ < 5 );
 			} while ("CONTINUE".equals(responseObj.getResult().getResponseCode()));
 
-			// assert the fare card summary
 			if ("OK".equals(responseObj.getResult().getResponseCode())) {
-				WSCardSummaryResponse responseObj2 = gson.fromJson(response, WSCardSummaryResponse.class);
+				LOG.info("ResponseCode is OK");
 
-				LOG.info("Serial number=" + responseObj2.getSerialNumber());
+				// com.cubic.qa.apiobjects.WSCatalogContainer
+				WSCatalogContainer catResponse = gson.fromJson(response, WSCatalogContainer.class);
 
-				LOG.info("Result=" + responseObj2.getHdr().getResult());
+				restActions.assertTrue("Successful".equals(catResponse.getHdr().getResult()),
+						"HDR RESULT IS NOT 'Successful' BUT IT SHOULD BE");
 
-				LOG.info("Card summary=" + responseObj2.getCardSummary());
+				restActions.assertTrue(null != catResponse.getHdr().getUid(),
+						"HDR RESULT IS null BUT IT SHOULD NOT BE");
 
-				restActions.assertTrue(null != responseObj2.getCardSummary(),
-						"Card Summary IS NULL BUT IT SHOULD NOT BE");
+				restActions.assertTrue("".equals(catResponse.getResult().getTerminalCommands()),
+						"RESULT TERMINAL COMMANDS IS NOT EMPTY STRING, BUT IT SHOULD BE");
 
-				if (null != responseObj2.getCardSummary()) {
-					restActions.assertTrue(null != responseObj2.getCardSummary().getRiderClassId(),
-							"Rider Class Id IS NULL BUT IT SHOULD NOT BE");
-					restActions.assertTrue(null != responseObj2.getCardSummary().getExpirationDateTime(),
-							"Expiration Date Time IS NULL BUT IT SHOULD NOT BE");
-					restActions.assertTrue(null != responseObj2.getCardSummary().getSvRecurringAmount(),
-							"Sv Recurring Amount IS NULL BUT IT SHOULD NOT BE");
-					restActions.assertTrue(null != responseObj2.getCardSummary().getSvAutoloadSetup(),
-							"Sv Autoload Setup IS NULL BUT IT SHOULD NOT BE");
-					restActions.assertTrue(null != responseObj2.getCardSummary().getTotalPasses(),
-							"Total Passes IS NULL BUT IT SHOULD NOT BE");
-					restActions.assertTrue(null != responseObj2.getCardSummary().getCscRegisteredFlag(),
-							"Csc Registered Flag IS NULL BUT IT SHOULD NOT BE");
-					restActions.assertTrue(null != responseObj2.getCardSummary().getMaxAddValue(),
-							"Max Add Value IS NULL BUT IT SHOULD NOT BE");
-					restActions.assertTrue(null != responseObj2.getCardSummary().getMaxCancelValue(),
-							"Max Cancel Value IS NULL BUT IT SHOULD NOT BE");
-					restActions.assertTrue(null != responseObj2.getCardSummary().getTestFlag(),
-							"Test Flag IS NULL BUT IT SHOULD NOT BE");
+				restActions.assertTrue(null != catResponse.getCatalog().getMaxAddValue(),
+						"CATALOG MAX ADD VALUE IS NULL BUT IT SHOULD NOT BE");
+
+				restActions.assertTrue(null != catResponse.getCatalog().getStoredValue(),
+						"CATALOG STORED VALUE IS NULL BUT IT SHOULD NOT BE");
+
+				for (WSStoredValue stored : catResponse.getCatalog().getStoredValue()) {
+					restActions.assertTrue(null != stored.getName(), "STORED VALUE NAME IS NULL BUT IT SHOULD NOT BE");
+
+					restActions.assertTrue(stored.getAmount() > 0,
+							"STORED VALUE AMOUNT IS NOT GREATER THAN ZERO BUT IT SHOULD BE");
+
+					restActions.assertTrue(stored.getPageNumber() > 0,
+							"STORED VALUE PAGE NUMBER IS NOT GREATER THAN ZERO BUT IT SHOULD BE");
+
+					restActions.assertTrue(stored.getButtonNumber() > 0,
+							"STORED VALUE BUTTON NUMBER IS NOT GREATER THAN ZERO BUT IT SHOULD BE");
+
+					restActions.assertTrue(null != stored.getLoadType(),
+							"STORED VALUE LOAD TYPE IS NULL BUT IT SHOULD NOT BE");
+				}
+
+				restActions.assertTrue(null != catResponse.getCatalog().getProduct(),
+						"CATALOG PRODUCT VALUE IS NULL BUT IT SHOULD NOT BE");
+
+				for (WSProduct product : catResponse.getCatalog().getProduct()) {
+					restActions.assertTrue(product.getFareInstrumentId() > 0,
+							"PRODUCT FARE INSTRUMENT ID IS NOT GREATER THAN ZERO BUT IT SHOULD BE");
+
+					restActions.assertTrue(null != product.getName(), "PRODUCT NAME IS NULL BUT IT SHOULD NOT BE");
+
+					restActions.assertTrue(null != product.getNameShort(),
+							"PRODUCT NAME SHORT IS NULL BUT IT SHOULD NOT BE");
+
+					restActions.assertTrue(null != product.getSupportsAutoload(),
+							"PRODUCT SUPPORTS AUTOLOAD IS NULL BUT IT SHOULD NOT BE");
+
+					restActions.assertTrue(product.getPrice() > 0,
+							"PRODUCT PRICE IS NOT GREATER THAN ZERO BUT IT SHOULD BE");
+
+					restActions.assertTrue(product.getPageNumber() > 0,
+							"PRODUCT PAGE NUMBER IS NOT GREATER THAN ZERO BUT IT SHOULD BE");
+
+					restActions.assertTrue(product.getButtonNumber() > 0,
+							"PRODUCT BUTTON NUMBER IS NOT GREATER THAN ZERO BUT IT SHOULD BE");
 				}
 			}
 
 			// close session with vpos/NL
 			String deleteSesssionURL = buildDeleteSessionURL(data);
 
-			trmResponsesStr = responseObj.getResult().getTerminalCommands();
-			LOG.info("terminalCommands=" + trmResponsesStr);
-
-			trmCommands = TrmCommands.fromString(trmResponsesStr);
-
-			// execute terminal commands to get the terminal responses
-			trmResponses = mockedTerminalProxy.executeCommandsOnReader(trmCommands);
-			trmResponsesStr = trmResponses.toString();
-
 			String deleteSessionRequestBody = buildCardSummaryRequestBody("EA+ADQICAABqBwAAAQAAkQA=");
 
-			LOG.info("Delete session request body=" + deleteSessionRequestBody);
+			LOG.info("requestBody=" + deleteSessionRequestBody);
 
-			deleteClientResponse(deleteSesssionURL, deleteSessionRequestBody, headers);
+			response = deleteClientResponse(deleteSesssionURL, deleteSessionRequestBody, headers);
 
-			// assert that vpos/NL responds with OK from the close request
 			responseObj = gson.fromJson(response, WSCreateSessionResponse.class);
 
 			restActions.assertTrue("OK".equals(responseObj.getResult().getResponseCode()),
 					"Response Code IN NOT 'OK' BUT IT SHOULD BE");
-
 			restActions.assertTrue("Successful".equals(responseObj.getHdr().getResult()),
 					"Result IS NOT 'Successful' BUT IT SHOULD BE");
 
@@ -217,19 +237,4 @@ public class CardSummaryTests extends NextLinkBase {
 			teardownAutomationTest(context, testCaseName);
 		}
 	}
-
-	/**
-	 * Build the URL of the Card Summary endpoint.
-	 * 
-	 * @param data
-	 *            The Test Data
-	 * @return the URL of the Card Summary endpoint
-	 */
-	private String buildCardSummaryURL(Hashtable<String, String> data) {
-		String host = data.get(NISGlobals.NIS_HOST_NAME);
-		String sfmt = data.get(NISGlobals.NIS_CARD_SUMMARY_URL_NAME);
-		String sURL = String.format(sfmt, host);
-		return sURL;
-	}
-
 }
