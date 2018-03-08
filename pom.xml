@@ -38,12 +38,12 @@
   	<dependency>
   		<groupId>com.cubic.restaction</groupId>
   		<artifactId>restaction</artifactId>
-  		<version>1.1</version>
+  		<version>1.2</version>
   	</dependency>
   	<dependency>
   		<groupId>com.cubic.testutil</groupId>
   		<artifactId>testutil</artifactId>
-  		<version>1.1</version>
+  		<version>1.2</version>
   	</dependency>
   	<dependency>
   		<groupId>com.cubic.seleniumaction</groupId>
@@ -134,7 +134,17 @@
   		<groupId>com.cubic</groupId>
   		<artifactId>devicecommons</artifactId>
   		<version>0.0.34</version>
-  	</dependency>  	
+  	</dependency>
+  	<dependency>
+  		<groupId>org.apache.httpcomponents</groupId>
+  		<artifactId>httpclient</artifactId>
+  		<version>4.3.4</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.apache.httpcomponents</groupId>
+  		<artifactId>httpcore</artifactId>
+  		<version>4.4.6</version>
+  	</dependency>
   </dependencies>
   
   <build>

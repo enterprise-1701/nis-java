@@ -3,6 +3,7 @@
     {
       "RunMode": "Y",
       "TestCase_Description": "REST001:getNotificationDetail",
+      "testRailId": "482041",
       "USERNAME": "ABC",
       "CUSTOMER_ID": "5502460",
       "NIS_HOST":"10.252.1.21",

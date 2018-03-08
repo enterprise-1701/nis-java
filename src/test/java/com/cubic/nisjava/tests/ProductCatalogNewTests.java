@@ -1,4 +1,4 @@
-package com.cubic.nisjava.tests.nextlink.productcatalog;
+package com.cubic.nisjava.tests;
 
 import org.apache.log4j.Logger;
 

@@ -4,6 +4,7 @@
 		{
 			"RunMode": "Y",
 			"TestCase_Description": "428535:cardSummaryTest",	
+			"testRailId": "428535",
 			"APP_ID":"abc",
 			"CSC_UID":"045d54223e2280",
 			"DEVICE_ID":"POI65001",
