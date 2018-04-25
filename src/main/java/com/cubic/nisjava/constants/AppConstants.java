@@ -9,6 +9,10 @@ public interface AppConstants {
 	Hashtable<String, String> CONFIG_PROPERTIES = PropertiesUtil.getPropertysAsHashtable(System.getProperty("user.dir") + "/resources/Config.properties");
 	
 	String DATA_PROVIDER = "dataProvider";
+	String DATA_PROVIDER_RETURN_ARRAYS = "dataProviderReturnWithArrays";
+	String DATA_PROVIDER_NO_TRIM = "dataProviderDoNotTrimInputData";
+	String DATA_PROVIDER_RETURN_ARRAYS_NO_TRIM = "dataProviderReturnWithArraysNoTrimInputData";
+	
 	String TEST_DATA_FOLDER = CONFIG_PROPERTIES.get("testDataFolder");
 	String NIS_TEST_DATA_FOLDER = CONFIG_PROPERTIES.get("nisTestDataFolder");
 	String REST_TEST_DATA_FOLDER = CONFIG_PROPERTIES.get("restTestDataFolder");
