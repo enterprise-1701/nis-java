@@ -15,11 +15,7 @@ public class NISDataProviderSource {
 	
 	@DataProvider(name = AppConstants.DATA_PROVIDER)
     public static Object[][] dataProvider(Method method) throws Throwable {
-        System.out.println("********** INSIDE DATA PROVIDER");
 		generateData(method);
-		System.out.println("************ GENERATED DATA WITHIN DATA PROVIDER");
-		System.out.println("******** Test Date file path:  " + testDatafilePath);
-		System.out.println("************ Parent Element:  " + parentElement);
         return TestDataUtil.getTestDataFromJson(testDatafilePath, parentElement);
     }
 	
@@ -27,23 +23,22 @@ public class NISDataProviderSource {
 	@DataProvider(name = AppConstants.DATA_PROVIDER_RETURN_ARRAYS_NO_TRIM)
 	public static Object[][] dataProviderReturnArraysNoTrim (Method method) throws Throwable {
 		generateData(method);
-		return TestDataUtil.getTestDataFromJsonFile(testDatafilePath, parentElement, true, true);
+		return TestDataUtil.getTestDataFromJsonFile(testDatafilePath, parentElement, true, false);
 	}
 	
-	@DataProvider(name = AppConstants.DATA_PROVIDER_RETURN_ARRAYS)
+	@DataProvider(name = AppConstants.DATA_PROVIDER_RETURN_ARRAYS_WITH_TRIM)
 	public static Object[][] dataProviderReturnArrays (Method method) throws Throwable {
 		generateData(method);
-        return TestDataUtil.getTestDataFromJsonFile(testDatafilePath, parentElement, true, false);
+        return TestDataUtil.getTestDataFromJsonFile(testDatafilePath, parentElement, true, true);
 	}
 	
 	@DataProvider(name = AppConstants.DATA_PROVIDER_NO_TRIM)
 	public static Object[][] dataProviderNoTrim (Method method) throws Throwable {
 		generateData(method);
-        return TestDataUtil.getTestDataFromJsonFile(testDatafilePath, parentElement, false, true);
+        return TestDataUtil.getTestDataFromJsonFile(testDatafilePath, parentElement, false, false);
 	}
 	
 	public static void generateData(Method method) {
-		System.out.println("******** INSIDE DATA PROVIDERE -- generateData method");
 		testDatafilePath = AppConstants.NIS_TEST_DATA_FOLDER + "/" + method.getDeclaringClass().getSimpleName() + ".json";
         parentElement = method.getName();
 	}
