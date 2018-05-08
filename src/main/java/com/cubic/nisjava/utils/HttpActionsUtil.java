@@ -5,6 +5,7 @@ import java.util.Hashtable;
 import com.cubic.accelerators.RESTActions;
 import com.cubic.accelerators.RESTConstants;
 import com.cubic.backoffice.utils.BackOfficeUtils;
+import com.cubic.nisjava.constants.GlobalConstants;
 import com.sun.jersey.api.client.ClientResponse;
 
 /**
@@ -115,4 +116,24 @@ public class HttpActionsUtil {
 		String sURL = String.format( cngFmt, cngHost, cngPort, customerId, contactId );
 		return sURL;
 	}	
+public static Hashtable<String, String> headerWithUid(String uid){
+		
+
+		Hashtable<String, String> headerTable = new Hashtable<String, String>();
+
+				
+		String sXCubHdr = String.format(GlobalConstants.TRAVELER_XCUBHDR_FMT, uid, GlobalConstants.TRAVELER_XCUBHDR_DEV);
+		
+		headerTable.put(GlobalConstants.TRAVELER_XCUBHDR_NAME, sXCubHdr);
+
+		headerTable.put(GlobalConstants.TRAVELER_AUTHORIZATION_HDR_NAME, GlobalConstants.TRAVELER_AUTHORIZATION_HDR_VALUE);
+
+		headerTable.put(GlobalConstants.TRAVELER_ACCEPT, RESTConstants.APPLICATION_JSON);
+		
+		headerTable.put(GlobalConstants.TRAVELER_CONTENT_TYPE, RESTConstants.APPLICATION_JSON);
+		
+		return headerTable;		
+		
+	}
+
 }
