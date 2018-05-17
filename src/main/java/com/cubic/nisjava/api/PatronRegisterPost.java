@@ -1,16 +1,10 @@
 package com.cubic.nisjava.api;
 
 import java.net.HttpURLConnection;
-
-import java.rmi.server.UID;
 import java.util.Hashtable;
-
 import org.apache.log4j.Logger;
 import org.testng.Assert;
-
 import com.cubic.accelerators.RESTActions;
-import com.cubic.backoffice.constants.BackOfficeGlobals;
-import com.cubic.backoffice.environments.Env;
 import com.cubic.backoffice.utils.BackOfficeUtils;
 import com.cubic.logutils.Log4jUtil;
 import com.cubic.nisjava.apiobjects.WSAddressExt;
@@ -18,9 +12,7 @@ import com.cubic.nisjava.apiobjects.WSCustomerRegisterRequest;
 import com.cubic.nisjava.apiobjects.WSCustomerRegisterResponse;
 import com.cubic.nisjava.apiobjects.WSName;
 import com.cubic.nisjava.apiobjects.WSPhone;
-import com.cubic.nisjava.constants.GlobalConstants;
 import com.cubic.nisjava.utils.DataUtils;
-import com.cubic.nisjava.utils.HttpActionsUtil;
 import com.google.gson.Gson;
 import com.sun.jersey.api.client.ClientResponse;
 

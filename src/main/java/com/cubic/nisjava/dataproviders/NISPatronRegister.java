@@ -1,12 +1,11 @@
 /**
+
  * 
  */
 package com.cubic.nisjava.dataproviders;
 
 import java.lang.reflect.Method;
-
 import org.testng.annotations.DataProvider;
-
 import com.cubic.datadriven.TestDataUtil;
 import com.cubic.nisjava.constants.AppConstants;
 
@@ -24,3 +23,4 @@ public class NISPatronRegister
 	        return TestDataUtil.getTestDataFromJson(testDatafilePath, parentElement);
 	    }
 }
+
