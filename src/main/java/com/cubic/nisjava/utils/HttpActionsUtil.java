@@ -2,6 +2,7 @@ package com.cubic.nisjava.utils;
 
 import java.util.Hashtable;
 
+
 import com.cubic.accelerators.RESTActions;
 import com.cubic.accelerators.RESTConstants;
 import com.cubic.backoffice.utils.BackOfficeUtils;
@@ -115,4 +116,5 @@ public class HttpActionsUtil {
 		String sURL = String.format( cngFmt, cngHost, cngPort, customerId, contactId );
 		return sURL;
 	}	
+
 }
