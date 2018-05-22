@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.testng.Assert;
 
 import com.cubic.accelerators.RESTActions;
+import com.cubic.backoffice.constants.BackOfficeGlobals;
 import com.cubic.backoffice.utils.BackOfficeUtils;
 import com.cubic.logutils.Log4jUtil;
 import com.cubic.nisjava.apiobjects.WSPatronAuthenticateRequest;
@@ -76,9 +77,11 @@ public class PatronAuthenticatePost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 
 	}
@@ -128,9 +131,11 @@ public class PatronAuthenticatePost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 
 	}
@@ -180,9 +185,11 @@ public class PatronAuthenticatePost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 
 	}	
@@ -232,9 +239,11 @@ public class PatronAuthenticatePost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 
 	}	
@@ -284,9 +293,11 @@ public class PatronAuthenticatePost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 
 	}	

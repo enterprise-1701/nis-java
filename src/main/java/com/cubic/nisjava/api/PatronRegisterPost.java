@@ -86,9 +86,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 
 	}	
@@ -140,9 +142,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 
 	}	
@@ -193,9 +197,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 
 	}
@@ -245,9 +251,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 
 	}
@@ -299,9 +307,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 
 	}
@@ -353,9 +363,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 
 	}
@@ -410,9 +422,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 			
 
@@ -468,9 +482,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -527,9 +543,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -587,9 +605,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -647,9 +667,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -708,9 +730,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -769,9 +793,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -830,9 +856,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -892,9 +920,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -953,9 +983,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -1013,9 +1045,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -1074,9 +1108,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -1135,9 +1171,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -1196,9 +1234,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -1251,9 +1291,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -1321,9 +1363,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -1381,9 +1425,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -1441,9 +1487,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -1501,9 +1549,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -1561,9 +1611,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -1619,9 +1671,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -1675,9 +1729,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -1731,9 +1787,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -1787,9 +1845,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -1843,9 +1903,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -1900,9 +1962,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
@@ -1956,9 +2020,11 @@ public class PatronRegisterPost {
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
+			throw new RuntimeException(e);
 		}
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
+			throw new RuntimeException(t);
 		}
 	
 	}
