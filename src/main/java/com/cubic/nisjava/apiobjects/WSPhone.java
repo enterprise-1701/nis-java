@@ -1,17 +1,29 @@
 package com.cubic.nisjava.apiobjects;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class WSPhone {
 
+	@SerializedName("country")
+	@Expose
+	private String country;
+	@SerializedName("number")
+	@Expose
 	private String number;
+	@SerializedName("type")
+	@Expose
 	private String type;
-	private String countryCode;
+	@SerializedName("displayNumber")
+	@Expose
+	private String displayNumber;
 
-	public String getCountryCode() {
-		return countryCode;
+	public String getCountry() {
+		return country;
 	}
 
-	public void setCountryCode(String countryCode) {
-		this.countryCode = countryCode;
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 	public String getNumber() {
@@ -28,6 +40,14 @@ public class WSPhone {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getDisplayNumber() {
+		return displayNumber;
+	}
+
+	public void setDisplayNumber(String displayNumber) {
+		this.displayNumber = displayNumber;
 	}
 
 }

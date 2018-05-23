@@ -1,29 +1,23 @@
 package com.cubic.nisjava.apiobjects;
-/**
- * @since Sep 24, 2017
- * @author VijayaBhaskar Palem
- */
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class WSName {
 
+	@SerializedName("firstName")
+	@Expose
 	private String firstName;
-	private String middleInitial;
+	@SerializedName("lastName")
+	@Expose
 	private String lastName;
-	
+
 	public String getFirstName() {
 		return firstName;
 	}
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
-	}
-
-	public String getMiddleInitial() {
-		return middleInitial;
-	}
-
-	public void setMiddleInitial(String middleInitial) {
-		this.middleInitial = middleInitial;
 	}
 
 	public String getLastName() {

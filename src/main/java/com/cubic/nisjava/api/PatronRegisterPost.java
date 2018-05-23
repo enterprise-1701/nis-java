@@ -1,7 +1,6 @@
 package com.cubic.nisjava.api;
 
 import java.net.HttpURLConnection;
-
 import java.util.Hashtable;
 import org.apache.log4j.Logger;
 import org.testng.Assert;
@@ -1316,18 +1315,18 @@ public class PatronRegisterPost {
 			WSPhone phone = new WSPhone();
 			phone.setNumber("818-707-1234");
 	 		phone.setType("M");
-	 		phone.setCountryCode("US");
+	 		phone.setCountry("US");
 	 		phone.setNumber("818-707-1234");
 	 		phone.setType("M");
-	 		phone.setCountryCode("US");
+	 		phone.setCountry("US");
 	 		jsonObj.getPhone().add(phone);
 	 		WSPhone phone1 = new WSPhone();
 	 		phone.setNumber("818-707-5678");
 	 		phone.setType("M");
-	 		phone.setCountryCode("US");
+	 		phone.setCountry("US");
 	 		phone.setNumber("818-707-5678");
 	 		phone.setType("M");
-	 		phone.setCountryCode("US");
+	 		phone.setCountry("US");
 	 		jsonObj.getPhone().add(phone);
 	 		jsonObj.getPhone().add(phone1);
 				 		
@@ -1388,7 +1387,7 @@ public class PatronRegisterPost {
 			WSPhone phone = new WSPhone();
 			phone.setNumber("");
 	 		phone.setType("M");
-	 		phone.setCountryCode("US");
+	 		phone.setCountry("US");
 	 		jsonObj.getPhone().add(phone);
 	 		
 				 		
@@ -1450,7 +1449,7 @@ public class PatronRegisterPost {
 			WSPhone phone = new WSPhone();
 			phone.setNumber(data.get("Invalid_PhoneNumber"));
 	 		phone.setType("M");
-	 		phone.setCountryCode("US");
+	 		phone.setCountry("US");
 	 		jsonObj.getPhone().add(phone);
 	 		
 				 		
@@ -1512,7 +1511,7 @@ public class PatronRegisterPost {
 			WSPhone phone = new WSPhone();
 			phone.setNumber(data.get("Phone"));
 	 		phone.setType("");
-	 		phone.setCountryCode("US");
+	 		phone.setCountry("US");
 	 		jsonObj.getPhone().add(phone);
 	 		
 				 		
@@ -1574,7 +1573,7 @@ public class PatronRegisterPost {
 			WSPhone phone = new WSPhone();
 			phone.setNumber(data.get("Phone"));
 	 		phone.setType("Z");
-	 		phone.setCountryCode("US");
+	 		phone.setCountry("US");
 	 		jsonObj.getPhone().add(phone);
 	 		
 				 		

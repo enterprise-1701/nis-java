@@ -69,7 +69,7 @@ public static WSCustomerRegisterRequest createPatronAccount(Hashtable<String,Str
  		jsonObj.setSecurityQuestion(data.get("SecurityQuestion"));
  		jsonObj.setOptionalData(optionalData);
  		WSPhone phone = new WSPhone();
- 		phone.setCountryCode(data.get("Country"));
+ 		phone.setCountry(data.get("Country"));
  		phone.setNumber(data.get("Phone"));
  		phone.setType("M");
  		jsonObj.getPhone().add(phone);
