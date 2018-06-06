@@ -38,5 +38,8 @@ public interface AppConstants {
     
     //NIS Patron module -
     String NIS_TEST_DATA_FOLDER_PATRON = CONFIG_PROPERTIES.get("nisTestDataFolderPatron");
+    
+    //RetailAPi module
+    String NIS_TEST_DATA_FOLDER_REATILAPI = CONFIG_PROPERTIES.get("nisTestDataFolderRetailApi");
       
 }
