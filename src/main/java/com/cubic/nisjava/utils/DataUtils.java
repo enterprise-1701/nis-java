@@ -1,8 +1,8 @@
 package com.cubic.nisjava.utils;
 
 import java.rmi.server.UID;
+
 import java.util.Hashtable;
-import java.util.Random;
 
 import com.cubic.backoffice.constants.BackOfficeGlobals;
 import com.cubic.backoffice.utils.BackOfficeUtils;
@@ -12,7 +12,6 @@ import com.cubic.nisjava.apiobjects.WSCustomerRegisterRequest;
 import com.cubic.nisjava.apiobjects.WSName;
 import com.cubic.nisjava.apiobjects.WSPatronAuthenticateRequest;
 import com.cubic.nisjava.apiobjects.WSPhone;
-
 
 /**
  * A Utility class used to create test data for sending Requests to NIS.
@@ -91,5 +90,5 @@ public static WSCustomerRegisterRequest createPatronAccount(Hashtable<String,Str
 		jsonObj.setPassword(password);
 		return jsonObj;	
 	}
-	
+
 }
