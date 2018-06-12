@@ -48,9 +48,7 @@ public class CreateMerchantSubaccountPost {
 		try {
 			
 			// Create URL
-			String url = "http://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user";
-			
-			//String url = "https://lab7319.ctsservice.com"+"/nis/retailapi/v1/customer/CMS000001000/user";
+			String url = "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user";
 			LOG.info("URL: " + url);
 	
 			// Build JSON Object
@@ -109,8 +107,7 @@ public class CreateMerchantSubaccountPost {
 		try {
 			
 			// Create URL
-			//String url = "http://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user";
-			String url = "https://lab7319.ctsservice.com"+"/nis/retailapi/v1/customer/CMS000001000/user";
+			String url = "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user";
 			LOG.info("URL: " + url);
 			
 
@@ -173,8 +170,7 @@ public class CreateMerchantSubaccountPost {
 		try {
 			
 			// Create URL
-			//String url = "http://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user";
-			String url = "https://lab7319.ctsservice.com"+"/nis/retailapi/v1/customer/CMS000001000/user";
+			String url = "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user";
 			LOG.info("URL: " + url);
 
 			// Build JSON Object
@@ -237,8 +233,7 @@ public class CreateMerchantSubaccountPost {
 		try {
 			
 			// Create URL
-			//String url = "http://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user";
-			String url = "https://lab7319.ctsservice.com"+"/nis/retailapi/v1/customer/CMS000001000/user";
+			String url = "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user";
 			LOG.info("URL: " + url);
 
 			// Build JSON Object
@@ -302,8 +297,7 @@ public class CreateMerchantSubaccountPost {
 		try {
 			
 			// Create URL
-			//String url = "http://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user";
-			String url = "https://lab7319.ctsservice.com"+"/nis/retailapi/v1/customer/CMS000001000/user";
+			String url = "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user";
 			LOG.info("URL: " + url);
 
 			// Build JSON Object
@@ -368,8 +362,7 @@ public class CreateMerchantSubaccountPost {
 		try {
 			
 			// Create URL
-			//String url = "http://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user";
-			String url = "https://lab7319.ctsservice.com/nis/retailapi/v1/customer/CMS000001000/user/"+ userId;
+			String url = "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user/"+ userId;
 			LOG.info("URL: " + url);
 			
 		
@@ -404,7 +397,7 @@ public class CreateMerchantSubaccountPost {
 			}
 			
 			/***  Delete Merchant Subaccount **/
-			String urlForTerminate = "https://lab7319.ctsservice.com/nis/retailapi/v1/customer/CMS000001000/user/"+ userId+ "/status/terminate";
+			String urlForTerminate = "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user/"+ userId+ "/status/terminate";
 			LOG.info("URL: " + urlForTerminate);
 			// Get JSON String representation of the Object
 			jsonStr = BackOfficeUtils.getJSONFromObject(jsonObj);
@@ -435,8 +428,7 @@ public class CreateMerchantSubaccountPost {
 			
 			/** Verify firstName and lastName are returned per PATCH changes ***/
 			// Create URL
-			//String url = "http://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user";
-			String urlAfterPutchanges = "https://lab7319.ctsservice.com/nis/retailapi/v1/customer/CMS000001000/user/" + userId;
+			String urlAfterPutchanges = "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user/"+ userId;
 			LOG.info("URL: " + urlAfterPutchanges);
 			
 		
@@ -495,7 +487,7 @@ public class CreateMerchantSubaccountPost {
 			
 			// Create new User id
 			jsonObj = merchantSubaccountRequest(data);
-			String urlForUserId = "https://lab7319.ctsservice.com"+"/nis/retailapi/v1/customer/CMS000001000/user";
+			String urlForUserId = "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user";
 			// Get JSON String representation of the Object
 			jsonStr = BackOfficeUtils.getJSONFromObject(jsonObj);
 			LOG.info("Converted JSON String: " + jsonStr);
@@ -514,8 +506,7 @@ public class CreateMerchantSubaccountPost {
 			
 			
 			// Create URL
-			//String url = "http://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user";
-			String url = "https://lab7319.ctsservice.com/nis/retailapi/v1/customer/CMS000001000/user/"+userId;
+			String url = "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user/"+userId;
 			LOG.info("URL: " + url);
 									
 			// Get JSON String representation of the Object
@@ -549,7 +540,7 @@ public class CreateMerchantSubaccountPost {
 			}
 			
 			/***  Delete Merchant Subaccount **/
-			String urlForDelete = "https://lab7319.ctsservice.com/nis/retailapi/v1/customer/CMS000001000/user/"+ userId + "/status/delete";
+			String urlForDelete = "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user/"+ userId + "/status/delete";
 			LOG.info("URL: " + urlForDelete);
 			// Get JSON String representation of the Object
 			jsonStr = BackOfficeUtils.getJSONFromObject(jsonObj);
@@ -585,8 +576,7 @@ public class CreateMerchantSubaccountPost {
 			
 			/** Verify firstName and lastName are unchanged per PUT changes ***/
 			// Create URL
-			//String url = "http://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user";
-			String urlAfterPutchanges = "https://lab7319.ctsservice.com/nis/retailapi/v1/customer/CMS000001000/user/" + userId;
+			String urlAfterPutchanges = "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user/" + userId;
 			LOG.info("URL: " + urlAfterPutchanges);
 			
 		
