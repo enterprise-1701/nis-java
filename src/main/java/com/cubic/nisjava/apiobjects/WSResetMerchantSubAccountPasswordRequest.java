@@ -1,29 +1,25 @@
 /**
- * 
- */
-package com.cubic.nisjava.apiobjects;
-
-/**
  * @author 203610
  * Jun 4, 2018
  */
+package com.cubic.nisjava.apiobjects;
+
 public class WSResetMerchantSubAccountPasswordRequest 
 {
 	private String password;
 
-    public String getPassword ()
-    {
-        return password;
-    }
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setPassword (String password)
-    {
-        this.password = password;
-    }
-    
-    @Override
-    public String toString()
-    {
-        return "ClassPojo [password = "+password+"]";
-    }
+   
 }

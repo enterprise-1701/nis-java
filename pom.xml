@@ -118,11 +118,11 @@
   		<artifactId>kafka-clients</artifactId>
   		<version>0.9.0.0</version>
   	</dependency>
-  	<dependency>
+  <!-- 	<dependency>
   		<groupId>com.cubic.backofficejava</groupId>
   		<artifactId>BackOfficeJava</artifactId>
-  		<version>1.4.1</version>
-  	</dependency>
+  		<version>1.6.1</version>
+  	</dependency> -->
   	<dependency>
   		<groupId>com.cubic.vpos</groupId>
   		<artifactId>vpos-trm-lib</artifactId>

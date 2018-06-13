@@ -1,12 +1,9 @@
 /**
- * 
- */
-package com.cubic.nisjava.apiobjects;
-
-/**
  * @author 203610
  * Jun 4, 2018
- */
+ */ 
+package com.cubic.nisjava.apiobjects;
+
 public class WSResetMerchantSubAccountPasswordResponse 
 {
 	private WSHdr hdr;

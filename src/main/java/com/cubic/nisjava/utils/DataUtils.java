@@ -3,10 +3,12 @@ package com.cubic.nisjava.utils;
 import java.rmi.server.UID;
 
 import java.util.Hashtable;
+import java.util.UUID;
 
 import org.apache.log4j.Logger;
 
 import com.cubic.accelerators.RESTActions;
+import com.cubic.accelerators.RESTConstants;
 import com.cubic.backoffice.constants.BackOfficeGlobals;
 import com.cubic.backoffice.utils.BackOfficeUtils;
 import com.cubic.nisjava.apiobjects.OptionalData;
@@ -116,5 +118,22 @@ public static WSCustomerRegisterRequest createPatronAccount(Hashtable<String,Str
 			return false;
 		}
 	}	
+	
+	/*
+	 * Method to create Request Header for RetailAPI
+	 */
+	public static Hashtable<String,String> getHeaderForRetailApi()
+	{
+		String uid = "";				
+		// Populate the Header Values
+		uid = UUID.randomUUID().toString();
+		Hashtable<String,String> header = new Hashtable<>();
+		String sXCubHdr = String.format("{ \"uid\": \"%s\", \"device\": \"%s\" }", uid, BackOfficeGlobals.BACKOFFICE_XCUBHDR_DEV);
+		header.put(BackOfficeGlobals.BACKOFFICE_XCUBHDR_NAME, sXCubHdr);
+		header.put(BackOfficeGlobals.BACKOFFICE_AUTHORIZATION_HDR_NAME, BackOfficeGlobals.BACKOFFICE_AUTHORIZATION_HDR_VALUE);
+		header.put(BackOfficeGlobals.BACKOFFICE_CONTENT_TYPE, RESTConstants.APPLICATION_JSON);
+		header.put(BackOfficeGlobals.BACKOFFICE_AUTHORIZATION_HDR_NAME, BackOfficeGlobals.BACKOFFICE_AUTHORIZATION_HDR_VALUE);				
+		return header;  			                
+	}
 
 }
