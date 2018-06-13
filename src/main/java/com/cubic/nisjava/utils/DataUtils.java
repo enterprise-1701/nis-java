@@ -3,7 +3,12 @@ package com.cubic.nisjava.utils;
 import java.rmi.server.UID;
 
 import java.util.Hashtable;
+import java.util.UUID;
 
+import org.apache.log4j.Logger;
+
+import com.cubic.accelerators.RESTActions;
+import com.cubic.accelerators.RESTConstants;
 import com.cubic.backoffice.constants.BackOfficeGlobals;
 import com.cubic.backoffice.utils.BackOfficeUtils;
 import com.cubic.nisjava.apiobjects.OptionalData;
@@ -12,6 +17,7 @@ import com.cubic.nisjava.apiobjects.WSCustomerRegisterRequest;
 import com.cubic.nisjava.apiobjects.WSName;
 import com.cubic.nisjava.apiobjects.WSPatronAuthenticateRequest;
 import com.cubic.nisjava.apiobjects.WSPhone;
+import com.sun.jersey.api.client.ClientResponse;
 
 /**
  * A Utility class used to create test data for sending Requests to NIS.
@@ -20,7 +26,8 @@ import com.cubic.nisjava.apiobjects.WSPhone;
 
 public class DataUtils 
 {
-
+	public static final String CLASS_NAME = "DataUtils";
+	private static final Logger LOG = Logger.getLogger(CLASS_NAME);
 	static 
 	{
 		BackOfficeGlobals.ENV.setEnvironmentVariables();
@@ -89,6 +96,44 @@ public static WSCustomerRegisterRequest createPatronAccount(Hashtable<String,Str
 		jsonObj.setUsername(Username);
 		jsonObj.setPassword(password);
 		return jsonObj;	
+	}
+	
+	/*
+	 * Method to validate the response code against the expected response code from Client response
+	 */
+	public static boolean validateResponseCode(RESTActions restActions, String expectedResponseCode, ClientResponse clientResponse)
+	{
+		int status = clientResponse.getStatus();					
+		LOG.info("Http Status is ... "+ status);
+		restActions.successReport("Http Response Status Code: ", ""+status);
+		int statusExpected = Integer.parseInt(expectedResponseCode);
+		String msg = "HTTP RESPONSE CODE - EXPECTED "+expectedResponseCode+", FOUND " + status;
+		restActions.assertTrue(status == statusExpected, msg);
+		if(status == statusExpected)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}	
+	
+	/*
+	 * Method to create Request Header for RetailAPI
+	 */
+	public static Hashtable<String,String> getHeaderForRetailApi()
+	{
+		String uid = "";				
+		// Populate the Header Values
+		uid = UUID.randomUUID().toString();
+		Hashtable<String,String> header = new Hashtable<>();
+		String sXCubHdr = String.format("{ \"uid\": \"%s\", \"device\": \"%s\" }", uid, BackOfficeGlobals.BACKOFFICE_XCUBHDR_DEV);
+		header.put(BackOfficeGlobals.BACKOFFICE_XCUBHDR_NAME, sXCubHdr);
+		header.put(BackOfficeGlobals.BACKOFFICE_AUTHORIZATION_HDR_NAME, BackOfficeGlobals.BACKOFFICE_AUTHORIZATION_HDR_VALUE);
+		header.put(BackOfficeGlobals.BACKOFFICE_CONTENT_TYPE, RESTConstants.APPLICATION_JSON);
+		header.put(BackOfficeGlobals.BACKOFFICE_AUTHORIZATION_HDR_NAME, BackOfficeGlobals.BACKOFFICE_AUTHORIZATION_HDR_VALUE);				
+		return header;  			                
 	}
 
 }
