@@ -24,7 +24,7 @@ public class ResetMerchantSubaccountPasswordPATCH
     }
 	public static final String CLASS_NAME = "ResetMerchantSubaccountPasswordPATCH";
 	private static final Logger LOG = Logger.getLogger(CLASS_NAME);
-	static String url = "https://" + BackOfficeGlobals.ENV.NIS_HOST  + "/nis/retailapi/v1/customer/CMS000001000/user/";
+	static String url =  "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user/";
 	static ClientResponse clientResponse;
 	static WSResetMerchantSubAccountPasswordRequest  jsonObj = null;	
 	static WSResetMerchantSubAccountPasswordResponse respObj = null;
