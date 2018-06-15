@@ -122,7 +122,7 @@
   		<groupId>com.cubic.backofficejava</groupId>
   		<artifactId>BackOfficeJava</artifactId>
   		<version>1.4.1</version>
-  	</dependency>
+  	</dependency> 
   	<dependency>
   		<groupId>com.cubic.vpos</groupId>
   		<artifactId>vpos-trm-lib</artifactId>

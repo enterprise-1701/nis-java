@@ -11,6 +11,7 @@ import java.util.Hashtable;
 import org.apache.log4j.Logger;
 
 import com.cubic.accelerators.RESTActions;
+import com.cubic.backoffice.constants.BackOfficeGlobals;
 import com.cubic.backoffice.utils.BackOfficeUtils;
 import com.cubic.logutils.Log4jUtil;
 import com.cubic.nisjava.apiobjects.MerchantLogin;
@@ -20,8 +21,14 @@ import com.google.gson.Gson;
 import com.sun.jersey.api.client.ClientResponse;
 
 public class MerchantPatronAuthenticatePost {
+
+	static 
+    {
+        BackOfficeGlobals.ENV.setEnvironmentVariables();
+    }
+
+	static String url =  "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/authenticate";
 	
-	static String url = "https://lab7319.ctsservice.com/nis/retailapi/v1/customer/CMS000001000/authenticate";
 	public static final String CLASS_NAME = "MerchantPatronAuthenticatePost";
 	private static final Logger LOG = Logger.getLogger(CLASS_NAME);
 	static ClientResponse clientResponse;
@@ -495,9 +502,6 @@ public class MerchantPatronAuthenticatePost {
 			
 			//Get security Question
 			getSecurityQuestion(data, actions);
-			
-			//Unlock Forgot Password
-			//To - Do
 				
 			}
 		catch (Exception e) {
@@ -519,8 +523,9 @@ public class MerchantPatronAuthenticatePost {
 	private static void getSecurityQuestion(Hashtable<String, String> data, RESTActions actions) throws Throwable {
 		
 		//Get Security Question
-		 String url = "https://lab7319.ctsservice.com/nis/retailapi/v1/customer/CMS000001000/securityquestion";
-		 
+		
+		String url = "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/securityquestion";
+		
 		// Build JSON Object with User name and Password
 		 jsonStr = "{\"username\":\""+data.get("ForgotPin_username")+"\"}";
 

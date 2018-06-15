@@ -1,4 +1,5 @@
 /**
+
  * 
  */
 package com.cubic.nisjava.apiobjects;
@@ -9,7 +10,6 @@ package com.cubic.nisjava.apiobjects;
  */
 
 import java.util.List;
-import com.cubic.backoffice.apiobjects.ApiRespHeader;
 
 public class MerchantLoginResp {
 	private String authCode;

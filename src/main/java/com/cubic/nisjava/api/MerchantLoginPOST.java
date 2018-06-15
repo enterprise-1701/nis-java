@@ -10,16 +10,22 @@ package com.cubic.nisjava.api;
 
 import java.util.Hashtable;
 
+
 import org.apache.log4j.Logger;
 
 import com.google.gson.Gson;
 import com.cubic.accelerators.RESTActions;
 import com.cubic.accelerators.RESTConstants;
+import com.cubic.backoffice.constants.BackOfficeGlobals;
 import com.cubic.backoffice.utils.BackOfficeUtils;
 import com.cubic.logutils.Log4jUtil;
 import com.cubic.nisjava.apiobjects.*;
 
 public class MerchantLoginPOST {
+	static 
+    {
+        BackOfficeGlobals.ENV.setEnvironmentVariables();
+    }
 
 	public static final String CLASS_NAME = "MerchantLoginPOST";
 	private static final Logger LOG = Logger.getLogger(CLASS_NAME);
@@ -33,6 +39,7 @@ public class MerchantLoginPOST {
 	 */
 	
 	public static MerchantLoginResp sendReq(String username, String password, RESTActions actions) {
+
 		String jsonStr = "";
 		String resp = "";
 		MerchantLogin jsonObj = null;
@@ -40,7 +47,7 @@ public class MerchantLoginPOST {
 		Hashtable<String, String> headerMap = null;
 		
 		// Create URL
-		String url = "https://lab7319.ctsservice.com/nis/retailapi/v1/customer/CMS000001000/authenticate";
+		String url =  "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/authenticate";
 		LOG.info("URL: " + url);
              
 		try {
