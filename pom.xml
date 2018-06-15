@@ -4,7 +4,7 @@
 
   <groupId>com.cubic.nisjava</groupId>
   <artifactId>NISJava</artifactId>
-  <version>1.6.0</version>
+  <version>1.7.0</version>
   <packaging>jar</packaging>
 
   <name>NISJava</name>
@@ -121,8 +121,8 @@
   	<dependency>
   		<groupId>com.cubic.backofficejava</groupId>
   		<artifactId>BackOfficeJava</artifactId>
-  		<version>1.4.1</version>
-  	</dependency> 
+  		<version>1.6.1</version>
+  	</dependency>
   	<dependency>
   		<groupId>com.cubic.vpos</groupId>
   		<artifactId>vpos-trm-lib</artifactId>
