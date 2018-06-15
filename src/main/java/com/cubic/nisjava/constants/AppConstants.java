@@ -32,7 +32,7 @@ public interface AppConstants {
     String NIS_TEST_DATA_FOLDER_FUNDING_SOURCE = CONFIG_PROPERTIES.get("nisTestDataFolderFundingSource");
     
     String NIS_TEST_DATA_FOLDER_NEXTLINK_v1 = CONFIG_PROPERTIES.get("nisTestDataFoldernextlink_v1");
-// NIS Account module - 
+   // NIS Account module - 
     
     String TESTDATA_FOLDER_PATH =  CONFIG_PROPERTIES.get("testdata_folder_path");
     
@@ -45,3 +45,4 @@ public interface AppConstants {
 
       
 }
+

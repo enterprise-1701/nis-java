@@ -16,3 +16,4 @@ public class NISDataProviderRetailAPI
         return TestDataUtil.getTestDataFromJson(testDatafilePath, parentElement);
     }
 }
+
