@@ -44,21 +44,16 @@ public class MerchantPatronAuthenticatePost {
 			jsonObj = DataUtils.patronAuthenticate(data.get("Username_Valid"),data.get("Password_Valid"), data.get("deviceSerialNumber_Valid"));
 					
 			// Get JSON String representation of the Object
-			jsonStr = BackOfficeUtils.getJSONFromObject(jsonObj);
-			LOG.info("Converted JSON String: " + jsonStr);
+			logJsonString();
 
 			// Make HTTP Post request to verify Patron Authenticate
-			clientResponse = actions.postClientResponse(url, jsonStr,DataUtils.getHeaderForRetailApi(), null,null);
-			resp = clientResponse.getEntity(String.class);
+			patronClientResponse(actions);
 			
 			//Logging url, status and Response
-			LOG.info("URL: " + url);
-			LOG.info("Http Status is ... "+ clientResponse.getStatus());
-			LOG.info("Response: \n" + resp);
+			loggingStatus();
 
 			// De-serialize the Response into a JSON Object
-			Gson g = new Gson();
-			respObj = g.fromJson(resp, jsonClass); 
+			gsonDeserializeResp(); 
 			
 			//Expected API Response
 			String ExpectedResp = "{\""+data.get("EXPECTED_FIELDNAME1")+"\":\""+data.get("EXPECTED_FIELDNAME1_VALUE")+"\",\""+data.get("EXPECTED_FIELDNAME2")+"\":\""+data.get("EXPECTED_FIELDNAME2_VALUE")+"\"}";
@@ -67,12 +62,9 @@ public class MerchantPatronAuthenticatePost {
 				
 				if(ExpectedResp.equalsIgnoreCase(resp)){
 				
-					actions.successReport("Sending Patron Authenticate POST request...", ""+url);
-					actions.successReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_OK, "Actual Http Response code is - "+clientResponse.getStatus());
+					logURLStatus(actions);
 					actions.successReport("Sending Http request body with valid username and password...", ""+jsonStr);
-					actions.successReport("Expected Response - ","" + ExpectedResp);
-					actions.successReport("Actual Response - ",""+resp);
-					actions.successReport("API Reponse Validation - ","Expected Response and Actual Response are matching");
+					logExpectedActualResp(actions, ExpectedResp);
 					
 				}
 				else
@@ -92,6 +84,58 @@ public class MerchantPatronAuthenticatePost {
 		}
 
 	}
+
+	/**
+	 * @param actions
+	 * @param ExpectedResp
+	 */
+	private static void logExpectedActualResp(RESTActions actions, String ExpectedResp) {
+		actions.successReport("Expected Response - ","" + ExpectedResp);
+		actions.successReport("Actual Response - ",""+resp);
+		actions.successReport("API Reponse Validation - ","Expected Response and Actual Response are matching");
+	}
+
+	/**
+	 * @param actions
+	 */
+	private static void logURLStatus(RESTActions actions) {
+		actions.successReport("Sending Patron Authenticate POST request...", ""+url);
+		actions.successReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_OK, "Actual Http Response code is - "+clientResponse.getStatus());
+	}
+
+	/**
+	 * 
+	 */
+	private static void gsonDeserializeResp() {
+		Gson g = new Gson();
+		respObj = g.fromJson(resp, jsonClass);
+	}
+
+	/**
+	 * 
+	 */
+	private static void loggingStatus() {
+		LOG.info("URL: " + url);
+		LOG.info("Http Status is ... "+ clientResponse.getStatus());
+		LOG.info("Response: \n" + resp);
+	}
+
+	/**
+	 * @param actions
+	 * @throws Throwable
+	 */
+	private static void patronClientResponse(RESTActions actions) throws Throwable {
+		clientResponse = actions.postClientResponse(url, jsonStr,DataUtils.getHeaderForRetailApi(), null,null);
+		resp = clientResponse.getEntity(String.class);
+	}
+
+	/**
+	 * 
+	 */
+	private static void logJsonString() {
+		jsonStr = BackOfficeUtils.getJSONFromObject(jsonObj);
+		LOG.info("Converted JSON String: " + jsonStr);
+	}
 	
 	/*
 	 * This method is used to test patron authenticate with Registered Device - C190399
@@ -106,21 +150,16 @@ public class MerchantPatronAuthenticatePost {
 			jsonObj = DataUtils.patronAuthenticate(data.get("Username_Valid"),data.get("Password_Valid"), data.get("deviceSerialNumber_Registered"));
 
 			// Get JSON String representation of the Object
-			jsonStr = BackOfficeUtils.getJSONFromObject(jsonObj);
-			LOG.info("Converted JSON String: " + jsonStr);
+			logJsonString();
 
 			// Make HTTP Post request to verify Patron Authenticate
-			clientResponse = actions.postClientResponse(url, jsonStr,DataUtils.getHeaderForRetailApi(), null,null);
-			resp = clientResponse.getEntity(String.class);
-			
+			patronClientResponse(actions);
+						
 			//Logging url, status and Response
-			LOG.info("URL: " + url);
-			LOG.info("Http Status is ... "+ clientResponse.getStatus());
-			LOG.info("Response: \n" + resp);
+			loggingStatus();
 
 			// De-serialize the Response into a JSON Object
-			Gson g = new Gson();
-			respObj = g.fromJson(resp, jsonClass); 
+			gsonDeserializeResp();  
 			
 			//Expected API Response
 			String ExpectedResp = "{\""+data.get("EXPECTED_FIELDNAME1")+"\":\""+data.get("EXPECTED_FIELDNAME1_VALUE")+"\",\""+data.get("EXPECTED_FIELDNAME2")+"\":\""+data.get("EXPECTED_FIELDNAME2_VALUE")+"\"}";
@@ -129,12 +168,9 @@ public class MerchantPatronAuthenticatePost {
 
 				if(ExpectedResp.equalsIgnoreCase(resp)){
 					
-					actions.successReport("Sending Patron Authenticate POST request...", ""+url);
-					actions.successReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_OK, "Actual Http Response code is - "+clientResponse.getStatus());
+					logURLStatus(actions);
 					actions.successReport("Sending Http request body with valid registered device details...", ""+jsonStr);
-					actions.successReport("Expected Response - ","" + ExpectedResp);
-					actions.successReport("Actual Response - ",""+resp);
-					actions.successReport("API Reponse Validation - ","Expected Response and Actual Response are matching");
+					logExpectedActualResp(actions, ExpectedResp);
 					
 				}
 				
@@ -169,21 +205,16 @@ public class MerchantPatronAuthenticatePost {
 			jsonObj = DataUtils.patronAuthenticate(data.get("Username_Valid"),data.get("Password_Valid"), data.get("deviceSerialNumber_UnRegistered"));
 
 			// Get JSON String representation of the Object
-			jsonStr = BackOfficeUtils.getJSONFromObject(jsonObj);
-			LOG.info("Converted JSON String: " + jsonStr);
+			logJsonString();
 
 			// Make HTTP Post request to verify Patron Authenticate
-			clientResponse = actions.postClientResponse(url, jsonStr,DataUtils.getHeaderForRetailApi(), null,null);
-			resp = clientResponse.getEntity(String.class);
-			
-			//Logging url, status and Response
-			LOG.info("URL: " + url);
-			LOG.info("Http Status is ... "+ clientResponse.getStatus());
-			LOG.info("Response: \n" + resp);
+			patronClientResponse(actions);
 						
+			//Logging url, status and Response
+			loggingStatus();
+
 			// De-serialize the Response into a JSON Object
-			Gson g = new Gson();
-			respObj = g.fromJson(resp, jsonClass);
+			gsonDeserializeResp(); 
 							
 			//Expected API Response
 			String ExpectedResp = "{\""+data.get("expected_hdr_field")+"\":{\""+data.get("expected_result")+"\":\""+data.get("expected_result_value")+"\",\""+data.get("expected_uid")+"\":\""+data.get("expected_uid_value")+"\",\""+data.get("expected_fieldName")+"\":\""+data.get("expected_fieldName_value")+"\",\""+data.get("expected_errorKey")+"\":\""+data.get("expected_errorKey_value")+"\"}}";
@@ -192,12 +223,9 @@ public class MerchantPatronAuthenticatePost {
 								
 				if(respObj.getHdr().getFieldName().equalsIgnoreCase(data.get("expected_fieldName_value")) && respObj.getHdr().getResult().equalsIgnoreCase(data.get("expected_result_value"))){
 						
-					actions.successReport("Sending Patron Authenticate POST request...", ""+url);
-					actions.successReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_BAD_REQUEST, "Actual Http Response code is - "+clientResponse.getStatus());
+					logURLStatusBadRequest(actions);
 					actions.successReport("Sending Http request body with unregistered device details...", ""+jsonStr);
-					actions.successReport("Expected Response - ","" + ExpectedResp);
-					actions.successReport("Actual Response - ","" + resp);
-					actions.successReport("API Reponse Validation - ","Expected Response and Actual Response are matching");
+					logExpectedActualResp(actions, ExpectedResp);
 
 			}
 				else
@@ -220,6 +248,14 @@ public class MerchantPatronAuthenticatePost {
 		}
 
 	}
+
+	/**
+	 * @param actions
+	 */
+	private static void logURLStatusBadRequest(RESTActions actions) {
+		actions.successReport("Sending Patron Authenticate POST request...", ""+url);
+		actions.successReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_BAD_REQUEST, "Actual Http Response code is - "+clientResponse.getStatus());
+	}
 	
 	/*
 	 * This method is used to test patron login with Authorization Failed
@@ -234,21 +270,16 @@ public class MerchantPatronAuthenticatePost {
 			jsonObj = DataUtils.patronAuthenticateWithoutDeviceSerialNumber(data.get("Username_Invalid"),data.get("Password_Invalid"));
 					
 			// Get JSON String representation of the Object
-			jsonStr = BackOfficeUtils.getJSONFromObject(jsonObj);
-			LOG.info("Converted JSON String: " + jsonStr);
+			logJsonString();
 
 			// Make HTTP Post request to verify Patron Authenticate
-			clientResponse = actions.postClientResponse(url, jsonStr,DataUtils.getHeaderForRetailApi(), null,null);
-			resp = clientResponse.getEntity(String.class);
-			
+			patronClientResponse(actions);
+						
 			//Logging url, status and Response
-			LOG.info("URL: " + url);
-			LOG.info("Http Status is ... "+ clientResponse.getStatus());
-			LOG.info("Response: \n" + resp);
+			loggingStatus();
 
 			// De-serialize the Response into a JSON Object
-			Gson g = new Gson();
-			respObj = g.fromJson(resp, jsonClass); 
+			gsonDeserializeResp(); 
 			
 			//Expected API Response
 			String ExpectedResp = "{\""+data.get("expected_authCode")+"\":\""+data.get("expected_authCode_value")+"\",\""+data.get("expected_authErrors")+"\":[{\""+data.get("expected_errorKey")+"\":\""+data.get("expected_errorKey_value")+"\"}]}";
@@ -257,12 +288,9 @@ public class MerchantPatronAuthenticatePost {
 		
 				if(ExpectedResp.equalsIgnoreCase(resp)){
 		
-					actions.successReport("Sending Patron Authenticate POST request...", ""+url);
-					actions.successReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_UNAUTHORIZED , "Actual Http Response code is - "+clientResponse.getStatus());
+					logURLStatusUnAuthorized(actions);
 					actions.successReport("Sending Http request body with Invalid Username and Password...", ""+jsonStr);
-					actions.successReport("Expected Response - ","" + ExpectedResp);
-					actions.successReport("Actual Response - ","" + resp);
-					actions.successReport("API Reponse Validation - ","Expected Response and Actual Response are matching");
+					logExpectedActualResp(actions, ExpectedResp);
 			}
 			else
 				actions.failureReport("Expecting Response - " + ExpectedResp,"Actual Response - " +resp);	
@@ -283,6 +311,14 @@ public class MerchantPatronAuthenticatePost {
 		}
 
 }
+
+	/**
+	 * @param actions
+	 */
+	private static void logURLStatusUnAuthorized(RESTActions actions) {
+		actions.successReport("Sending Patron Authenticate POST request...", ""+url);
+		actions.successReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_UNAUTHORIZED , "Actual Http Response code is - "+clientResponse.getStatus());
+	}
 	
 	/*
 	 * This method is used to test patron login with Locked User
@@ -297,21 +333,16 @@ public class MerchantPatronAuthenticatePost {
 			jsonObj = DataUtils.patronAuthenticateWithoutDeviceSerialNumber(data.get("username"),data.get("password"));
 					
 			// Get JSON String representation of the Object
-			jsonStr = BackOfficeUtils.getJSONFromObject(jsonObj);
-			LOG.info("Converted JSON String: " + jsonStr);
+			logJsonString();
 
 			// Make HTTP Post request to verify Patron Authenticate
-			clientResponse = actions.postClientResponse(url, jsonStr,DataUtils.getHeaderForRetailApi(), null,null);
-			resp = clientResponse.getEntity(String.class);
-			
+			patronClientResponse(actions);
+						
 			//Logging url, status and Response
-			LOG.info("URL: " + url);
-			LOG.info("Http Status is ... "+ clientResponse.getStatus());
-			LOG.info("Response: \n" + resp);
-			
+			loggingStatus();
+
 			// De-serialize the Response into a JSON Object
-			Gson g = new Gson();
-			respObj = g.fromJson(resp, jsonClass); 
+			gsonDeserializeResp(); 
 			
 			//Expected API Response
 			String ExpectedResp = "{\""+data.get("expected_authCode")+"\":\""+data.get("expected_authCode_value")+"\",\""+data.get("expected_authErrors")+"\":[{\""+data.get("expected_errorKey")+"\":\""+data.get("expected_errorKey_value")+"\"}]}";
@@ -319,12 +350,9 @@ public class MerchantPatronAuthenticatePost {
 			if (HttpURLConnection.HTTP_UNAUTHORIZED == clientResponse.getStatus()) {
 
 				if(ExpectedResp.equalsIgnoreCase(resp)){
-				actions.successReport("Sending Patron Authenticate POST request...", ""+url);
-				actions.successReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_UNAUTHORIZED, "Actual Http Response code is - "+clientResponse.getStatus());
+				logURLStatusUnAuthorized(actions);
 				actions.successReport("Sending Http request body with locked user...", ""+jsonStr);
-				actions.successReport("Expected Response - ","" + ExpectedResp);
-				actions.successReport("Actual Response - ","" + resp);
-				actions.successReport("API Reponse Validation - ","Expected Response and Actual Response are matching");
+				logExpectedActualResp(actions, ExpectedResp);
 				
 			}
 				else
@@ -360,22 +388,17 @@ public class MerchantPatronAuthenticatePost {
 			jsonObj = DataUtils.patronAuthenticateWithoutDeviceSerialNumber(data.get("username"),data.get("password"));
 				
 			// Get JSON String representation of the Object
-			jsonStr = BackOfficeUtils.getJSONFromObject(jsonObj);
-			LOG.info("Converted JSON String: " + jsonStr);
+			logJsonString();
 
 			// Make HTTP Post request to verify Patron Authenticate
-			clientResponse = actions.postClientResponse(url, jsonStr,DataUtils.getHeaderForRetailApi(), null,null);
-			resp = clientResponse.getEntity(String.class);
-			
+			patronClientResponse(actions);
+						
 			//Logging url, status and Response
-			LOG.info("URL: " + url);
-			LOG.info("Http Status is ... "+ clientResponse.getStatus());
-			LOG.info("Response: \n" + resp);
+			loggingStatus();
 
 			// De-serialize the Response into a JSON Object
-			Gson g = new Gson();
-			respObj = g.fromJson(resp, jsonClass); 
-
+			gsonDeserializeResp(); 
+						
 			//Expected Response String
 			String ExpectedResp = "{\""+data.get("expected_authCode")+"\":\""+data.get("expected_authCode_value")+"\",\""+data.get("expected_authErrors")+"\":[{\""+data.get("expected_errorKey")+"\":\""+data.get("expected_errorKey_value")+"\"}]}";
 			
@@ -383,23 +406,19 @@ public class MerchantPatronAuthenticatePost {
 				
 				if(respObj.getAuthCode().equalsIgnoreCase(data.get("expected_authCode")) && respObj.getAuthErrors().get(0).geterrorKey().equalsIgnoreCase(data.get("expected_errorKey_value"))){
 					
-				actions.successReport("Sending Patron Authenticate POST request...", ""+url);				
-				actions.successReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_UNAUTHORIZED, "Actual Http Response code is - "+clientResponse.getStatus());
+				logURLStatusUnAuthorized(actions);
 				actions.successReport("Sending Http request body with valid username and password of suspended user...", ""+jsonStr);
 				
-				actions.successReport("Expected Response - ","" + ExpectedResp);
-				actions.successReport("Actual Response - ","" + resp);
-				actions.successReport("API Reponse Validation - ","Expected Response and Actual Response are matching");
+				logExpectedActualResp(actions, ExpectedResp);
 							
-				
-					actions.successReport("Verify Response Payload:", "" +resp);		
 				}
-				
+				else
+					actions.failureReport("Expecting Response - " + ExpectedResp,"Actual Response - " +resp);	
+			}
+
 			else {
 				actions.failureReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_UNAUTHORIZED, "Actual Http Response code is - "+clientResponse.getStatus());
-				actions.failureReport("Expecting Response - " + ExpectedResp,"Actual Response - " +resp);
-				
-			}
+								
 			}
 			}
 		catch (Exception e) {
@@ -424,29 +443,25 @@ public class MerchantPatronAuthenticatePost {
 
 			// Build JSON Object with User name and Password
 			jsonObj = DataUtils.patronAuthenticateWithoutDeviceSerialNumber(data.get("username"),data.get("password"));
-					
+			
 			// Get JSON String representation of the Object
-			jsonStr = BackOfficeUtils.getJSONFromObject(jsonObj);
-			LOG.info("Converted JSON String: " + jsonStr);
+			logJsonString();
 
 			// Make HTTP Post request to verify Patron Authenticate
 			clientResponse = actions.postClientResponse(url, jsonStr,null, null,null);
 			resp = clientResponse.getEntity(String.class);
-			
+		
 			//Logging url, status and Response
-			LOG.info("URL: " + url);
-			LOG.info("Http Status is ... "+ clientResponse.getStatus());
-			LOG.info("Response: \n" + resp);
+			loggingStatus();
 
 			// De-serialize the Response into a JSON Object
-			Gson g = new Gson();
-			respObj = g.fromJson(resp, jsonClass); 
+			gsonDeserializeResp(); 
+			
 			String ExpectedResp = "{\""+data.get("expected_fieldName")+"\": {\""+data.get("expected_result")+"\": \""+data.get("expected_result_value")+"\",\""+data.get("expected_uid")+"\": \""+data.get("expected_uid_value")+"\",\""+data.get("expected_fieldName")+"\": \""+data.get("expected_fieldName_value")+"\",\""+data.get("expected_errorKey")+"\": \""+data.get("expected_errorKey_value")+"\",\""+data.get("expected_errorMessage")+"\": \""+data.get("expected_errorMessage_value")+"\"}}";
 			
 			if (HttpURLConnection.HTTP_BAD_REQUEST == clientResponse.getStatus()) {
 
-				actions.successReport("Sending Patron Authenticate POST request...", ""+url);
-				actions.successReport("Expecting  Http Response code is - "+HttpURLConnection.HTTP_BAD_REQUEST, "Actual Http Response code is - "+clientResponse.getStatus());
+				logURLStatusBadRequest(actions);
 				actions.successReport("Sending Http request body with Blank Auth ...", ""+jsonStr);
 				actions.successReport("Expecting Response is - " + ExpectedResp,"Actual Response is - " +resp);
 				
@@ -476,43 +491,14 @@ public class MerchantPatronAuthenticatePost {
 	 */
 	public static void verifyForgotPin(Hashtable<String, String> data, RESTActions actions) {
 
-		// To - Do
-/*		try {
-			//ForgotPin_username
-			 String url = "https://lab7319.ctsservice.com"+"/nis/retailapi/v1/customer/CMS000001000/securityanswer";
-			 
-			// Build JSON Object with User name and Password
-			 jsonStr = "{\"username\":\"MojicaK@intific.com\"}";
-		
-			// Make HTTP Post request to verify Patron Authenticate
-			clientResponse = actions.postClientResponse(url, jsonStr,DataUtils.getHeaderForRetailApi(), null,null);
-			resp = clientResponse.getEntity(String.class);
+		try {
 			
-			//Logging url, status and Response
-			LOG.info("URL: " + url);
-			LOG.info("Http Status is ... "+ clientResponse.getStatus());
-			LOG.info("Response: \n" + resp);
-
-			// De-serialize the Response into a JSON Object
-			Gson g = new Gson();
-			respObj = g.fromJson(resp, jsonClass); 
-			String ExpectedResp = "{\"username\":\""+data.get("ForgotPin_username")+"\"}";
-				
+			//Get security Question
+			getSecurityQuestion(data, actions);
+			
+			//Unlock Forgot Password
 			//To - Do
-			if (HttpURLConnection.HTTP_BAD_REQUEST == clientResponse.getStatus()) {
-
-				actions.successReport("Sending Patron Authenticate POST request...", ""+url);
-				actions.successReport("Expecting  Http Response code is - "+HttpURLConnection.HTTP_BAD_REQUEST, "Actual Http Response code is - "+clientResponse.getStatus());
-				actions.successReport("Sending Http request body with Blank Auth ...", ""+jsonStr);
-				actions.successReport("Expecting Response is - " + ExpectedResp,"Actual Response is - " +resp);
 				
-			}
-			
-			else {
-				actions.failureReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_BAD_REQUEST, "Actual Http Response code is - "+clientResponse.getStatus());
-				actions.failureReport("Expecting Response - " + ExpectedResp,"Actual Response - " +resp);
-				
-			}
 			}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
@@ -521,8 +507,52 @@ public class MerchantPatronAuthenticatePost {
 		catch (Throwable t) {
 			LOG.error(Log4jUtil.getStackTrace(t));
 			throw new RuntimeException(t);
-		}*/
+		}
 
+	}
+
+	/**
+	 * @param data
+	 * @param actions
+	 * @throws Throwable
+	 */
+	private static void getSecurityQuestion(Hashtable<String, String> data, RESTActions actions) throws Throwable {
+		
+		//Get Security Question
+		 String url = "https://lab7319.ctsservice.com/nis/retailapi/v1/customer/CMS000001000/securityquestion";
+		 
+		// Build JSON Object with User name and Password
+		 jsonStr = "{\"username\":\""+data.get("ForgotPin_username")+"\"}";
+
+		// Make HTTP Post request to get Security Question
+		clientResponse = actions.postClientResponse(url, jsonStr,DataUtils.getHeaderForRetailApi(), null,null);
+		resp = clientResponse.getEntity(String.class);
+		
+		//Logging url, status and Response
+		loggingStatus();
+
+		// De-serialize the Response into a JSON Object
+		gsonDeserializeResp(); 
+		
+		//Expected API Response
+		String ExpectedResp = "{\"securityQuestions\":[\""+data.get("SecurityQuestion")+"\"]}";
+			
+		if (HttpURLConnection.HTTP_OK == clientResponse.getStatus()) {
+
+			if(ExpectedResp.equalsIgnoreCase(resp)){
+			logURLStatus(actions);
+			actions.successReport("Sending Http request body with valid username ...", ""+jsonStr);
+			logExpectedActualResp(actions, ExpectedResp);
+			
+		}
+		else
+			actions.failureReport("Expecting Response - " + ExpectedResp,"Actual Response - " +resp);	
+		}
+
+		else {
+		actions.failureReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_OK, "Actual Http Response code is - "+clientResponse.getStatus());
+						
+		}
 	}
 
 	public static void verifyLoginWithMultipleUsers(Hashtable<String, String> data, RESTActions actions) {
@@ -531,23 +561,18 @@ public class MerchantPatronAuthenticatePost {
 
 			// Build JSON Object with User name, Password and Device Serial Number
 			jsonObj = DataUtils.patronAuthenticate(data.get("Username_Valid"),data.get("Password_Valid"), data.get("deviceSerialNumber_Valid"));
-					
-			// Get JSON String representation of the Object
-			jsonStr = BackOfficeUtils.getJSONFromObject(jsonObj);
-			LOG.info("Converted JSON String: " + jsonStr);
+				
+			//Logging url, status and Response
+			logJsonString();
 
-			// Make HTTP Post request to verify Patron Authenticate
-			clientResponse = actions.postClientResponse(url, jsonStr,DataUtils.getHeaderForRetailApi(), null,null);
-			resp = clientResponse.getEntity(String.class);
+			//Make HTTP Post request to get Security Question
+			patronClientResponse(actions);
 			
 			//Logging url, status and Response
-			LOG.info("URL: " + url);
-			LOG.info("Http Status is ... "+ clientResponse.getStatus());
-			LOG.info("Response: \n" + resp);
+			loggingStatus();
 
 			// De-serialize the Response into a JSON Object
-			Gson g = new Gson();
-			respObj = g.fromJson(resp, jsonClass); 
+			gsonDeserializeResp();  
 			
 			//Expected API Response
 			String ExpectedResp = "{\""+data.get("EXPECTED_FIELDNAME1")+"\":\""+data.get("EXPECTED_FIELDNAME1_VALUE")+"\",\""+data.get("EXPECTED_FIELDNAME2")+"\":\""+data.get("EXPECTED_FIELDNAME2_VALUE")+"\"}";
@@ -556,12 +581,9 @@ public class MerchantPatronAuthenticatePost {
 				
 				if(ExpectedResp.equalsIgnoreCase(resp)){
 				
-					actions.successReport("Sending Patron Authenticate POST request...", ""+url);
-					actions.successReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_OK, "Actual Http Response code is - "+clientResponse.getStatus());
+					logURLStatus(actions);
 					actions.successReport("Sending Http request body with valid username and password...", ""+jsonStr);
-					actions.successReport("Expected Response - ","" + ExpectedResp);
-					actions.successReport("Actual Response - ",""+resp);
-					actions.successReport("API Reponse Validation - ","Expected Response and Actual Response are matching");
+					logExpectedActualResp(actions, ExpectedResp);
 					
 				}
 				else
