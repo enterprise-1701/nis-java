@@ -20,6 +20,10 @@ public class WSHdr {
 	@SerializedName("fieldName")
 	@Expose
 	private String fieldName;	
+	
+	@SerializedName("errorMessage")
+	@Expose
+	private String errorMessage;
 
 	public String getResult() {
 		return result;
@@ -52,5 +56,13 @@ public class WSHdr {
 	public void setFieldName(String fieldName) {
 		this.fieldName = fieldName;
 	}
+	
+	public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String message) {
+        this.errorMessage = message;
+    }
 
 }
