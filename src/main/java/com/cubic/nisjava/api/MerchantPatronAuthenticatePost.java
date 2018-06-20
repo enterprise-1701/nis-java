@@ -608,8 +608,8 @@ public class MerchantPatronAuthenticatePost {
 	 */
 	private static void verifyToken(Hashtable<String, String> data, RESTActions actions, String verificationToken) throws Throwable {
 		
-		String url = "https://lab7319.ctsservice.com/nis/retailapi/v1/customer/CMS000001000/password/verifytoken";
-		 
+		String url = "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/password/verifytoken"; 
+	 
 		// Build JSON Object with User name and Security Question - Answer			
 		jsonStr = "{\"username\":\""+data.get("ForgotPin_username")+"\",\"verificationToken\":\""+verificationToken+"\",\"newPassword\":\""+data.get("newPassword")+"\"}";
 				
