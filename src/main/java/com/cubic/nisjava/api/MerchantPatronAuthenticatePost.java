@@ -7,13 +7,13 @@ package com.cubic.nisjava.api;
 
 import java.net.HttpURLConnection;
 import java.util.Hashtable;
-
 import org.apache.log4j.Logger;
-
 import com.cubic.accelerators.RESTActions;
 import com.cubic.backoffice.constants.BackOfficeGlobals;
 import com.cubic.backoffice.utils.BackOfficeUtils;
 import com.cubic.logutils.Log4jUtil;
+import com.cubic.nisjava.apiobjects.ForgotPassword;
+import com.cubic.nisjava.apiobjects.ForgotPasswordResp;
 import com.cubic.nisjava.apiobjects.MerchantLogin;
 import com.cubic.nisjava.apiobjects.MerchantLoginResp;
 import com.cubic.nisjava.utils.DataUtils;
@@ -35,6 +35,11 @@ public class MerchantPatronAuthenticatePost {
 	static MerchantLogin jsonObj = null;	
 	static MerchantLoginResp respObj = null;
 	static Class<MerchantLoginResp> jsonClass = MerchantLoginResp.class;
+	
+	static ForgotPassword jsonObj1 = null;	
+	static ForgotPasswordResp respObj1 = null;
+	static Class<ForgotPasswordResp> jsonClass1 = ForgotPasswordResp.class;
+	
 	static String jsonStr = "";
 	static String resp = "";
 	
@@ -57,7 +62,7 @@ public class MerchantPatronAuthenticatePost {
 			patronClientResponse(actions);
 			
 			//Logging url, status and Response
-			loggingStatus();
+			loggingStatus(url);
 
 			// De-serialize the Response into a JSON Object
 			gsonDeserializeResp(); 
@@ -65,20 +70,8 @@ public class MerchantPatronAuthenticatePost {
 			//Expected API Response
 			String ExpectedResp = "{\""+data.get("EXPECTED_FIELDNAME1")+"\":\""+data.get("EXPECTED_FIELDNAME1_VALUE")+"\",\""+data.get("EXPECTED_FIELDNAME2")+"\":\""+data.get("EXPECTED_FIELDNAME2_VALUE")+"\"}";
 			
-			if (HttpURLConnection.HTTP_OK == clientResponse.getStatus()) {
-				
-				if(ExpectedResp.equalsIgnoreCase(resp)){
-				
-					logURLStatus(actions);
-					actions.successReport("Sending Http request body with valid username and password...", ""+jsonStr);
-					logExpectedActualResp(actions, ExpectedResp);
-					
-				}
-				else
-					actions.failureReport("Expecting Response - " + ExpectedResp,"Actual Response - " +resp);
-			}
-			else 
-				actions.failureReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_OK, "Actual Http Response code is - "+clientResponse.getStatus());		
+			//Expected Authenticate Response
+			authenticateExpectedResp(actions, ExpectedResp);		
 	
 		}
 		catch (Exception e) {
@@ -119,9 +112,9 @@ public class MerchantPatronAuthenticatePost {
 	}
 
 	/**
-	 * 
+	 * @param url
 	 */
-	private static void loggingStatus() {
+	private static void loggingStatus(String url) {
 		LOG.info("URL: " + url);
 		LOG.info("Http Status is ... "+ clientResponse.getStatus());
 		LOG.info("Response: \n" + resp);
@@ -163,7 +156,7 @@ public class MerchantPatronAuthenticatePost {
 			patronClientResponse(actions);
 						
 			//Logging url, status and Response
-			loggingStatus();
+			loggingStatus(url);
 
 			// De-serialize the Response into a JSON Object
 			gsonDeserializeResp();  
@@ -200,7 +193,7 @@ public class MerchantPatronAuthenticatePost {
 	}
 	
 	/*
-	 * This method is used to test patron authenticate with Unregistered Device 
+	 * This method is used to test patron authenticate with Unregistered Device - C190402
 	 * @param data
 	 * @param actions
 	 */
@@ -218,7 +211,7 @@ public class MerchantPatronAuthenticatePost {
 			patronClientResponse(actions);
 						
 			//Logging url, status and Response
-			loggingStatus();
+			loggingStatus(url);
 
 			// De-serialize the Response into a JSON Object
 			gsonDeserializeResp(); 
@@ -265,7 +258,7 @@ public class MerchantPatronAuthenticatePost {
 	}
 	
 	/*
-	 * This method is used to test patron login with Authorization Failed
+	 * This method is used to test patron login with Authorization Failed - C190410
 	 * @param data
 	 * @param actions
 	 */
@@ -283,7 +276,7 @@ public class MerchantPatronAuthenticatePost {
 			patronClientResponse(actions);
 						
 			//Logging url, status and Response
-			loggingStatus();
+			loggingStatus(url);
 
 			// De-serialize the Response into a JSON Object
 			gsonDeserializeResp(); 
@@ -328,7 +321,7 @@ public class MerchantPatronAuthenticatePost {
 	}
 	
 	/*
-	 * This method is used to test patron login with Locked User
+	 * This method is used to test patron login with Locked User - C190411
 	 * @param data
 	 * @param actions
 	 */
@@ -346,7 +339,7 @@ public class MerchantPatronAuthenticatePost {
 			patronClientResponse(actions);
 						
 			//Logging url, status and Response
-			loggingStatus();
+			loggingStatus(url);
 
 			// De-serialize the Response into a JSON Object
 			gsonDeserializeResp(); 
@@ -383,7 +376,7 @@ public class MerchantPatronAuthenticatePost {
 	}
 	
 	/*
-	 * This method is used to test patron login with Suspended User
+	 * This method is used to test patron login with Suspended User - C190412
 	 * @param data
 	 * @param actions
 	 */
@@ -401,7 +394,7 @@ public class MerchantPatronAuthenticatePost {
 			patronClientResponse(actions);
 						
 			//Logging url, status and Response
-			loggingStatus();
+			loggingStatus(url);
 
 			// De-serialize the Response into a JSON Object
 			gsonDeserializeResp(); 
@@ -411,11 +404,10 @@ public class MerchantPatronAuthenticatePost {
 			
 			if (HttpURLConnection.HTTP_UNAUTHORIZED == clientResponse.getStatus()) {
 				
-				if(respObj.getAuthCode().equalsIgnoreCase(data.get("expected_authCode")) && respObj.getAuthErrors().get(0).geterrorKey().equalsIgnoreCase(data.get("expected_errorKey_value"))){
+				if(ExpectedResp.equalsIgnoreCase(resp)){
 					
 				logURLStatusUnAuthorized(actions);
 				actions.successReport("Sending Http request body with valid username and password of suspended user...", ""+jsonStr);
-				
 				logExpectedActualResp(actions, ExpectedResp);
 							
 				}
@@ -440,7 +432,7 @@ public class MerchantPatronAuthenticatePost {
 	}
 	
 	/*
-	 * This method is used to test patron login with No Auth
+	 * This method is used to test patron login with Blank Auth - C821823
 	 * @param data
 	 * @param actions
 	 */
@@ -459,7 +451,7 @@ public class MerchantPatronAuthenticatePost {
 			resp = clientResponse.getEntity(String.class);
 		
 			//Logging url, status and Response
-			loggingStatus();
+			loggingStatus(url);
 
 			// De-serialize the Response into a JSON Object
 			gsonDeserializeResp(); 
@@ -492,7 +484,7 @@ public class MerchantPatronAuthenticatePost {
 	}
 	
 	/*
-	 * This method is used to test forgot pin
+	 * This method is used to test forgot pin - C191110
 	 * @param data
 	 * @param actions
 	 */
@@ -502,8 +494,36 @@ public class MerchantPatronAuthenticatePost {
 			
 			//Get security Question
 			getSecurityQuestion(data, actions);
-				
-			}
+			
+			//Forgot Password
+			String token = forgotPassword(data, actions);
+			
+			//Verify Token
+			verifyToken(data, actions, token);
+			
+			//Authenticate
+			jsonObj = DataUtils.patronAuthenticateWithoutDeviceSerialNumber(data.get("ForgotPin_username"),data.get("newPassword"));
+
+			// Get JSON String representation of the Object
+			jsonStr = BackOfficeUtils.getJSONFromObject(jsonObj);
+			LOG.info("Converted JSON String: " + jsonStr);
+
+			// Make HTTP Post request to verify Patron Authenticate
+			patronClientResponse(actions);
+			
+			//Logging url, status and Response
+			loggingStatus(url);			
+
+			// De-serialize the Response into a JSON Object
+			gsonDeserializeResp();
+			
+			//Expected API Response
+			String ExpectedResp = "{\""+data.get("EXPECTED_FIELDNAME1")+"\":\""+data.get("EXPECTED_FIELDNAME1_VALUE")+"\",\""+data.get("EXPECTED_FIELDNAME2")+"\":\""+data.get("EXPECTED_FIELDNAME2_VALUE")+"\"}";
+			
+			authenticateExpectedResp(actions, ExpectedResp);	
+	
+		}
+
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
 			throw new RuntimeException(e);
@@ -516,6 +536,95 @@ public class MerchantPatronAuthenticatePost {
 	}
 
 	/**
+	 * @param actions
+	 * @param ExpectedResp
+	 */
+	private static void authenticateExpectedResp(RESTActions actions, String ExpectedResp) {
+		if (HttpURLConnection.HTTP_OK == clientResponse.getStatus()) {
+			
+			if(ExpectedResp.equalsIgnoreCase(resp)){
+			
+				logURLStatus(actions);
+				actions.successReport("Sending Http request body with valid username and password...", ""+jsonStr);
+				logExpectedActualResp(actions, ExpectedResp);
+				
+			}
+			else
+				actions.failureReport("Expecting Response - " + ExpectedResp,"Actual Response - " +resp);
+		}
+		else 
+			actions.failureReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_OK, "Actual Http Response code is - "+clientResponse.getStatus());
+	}
+
+	/**
+	 * @param data
+	 * @param actions
+	 * @return 
+	 * @throws Throwable
+	 */
+	private static String forgotPassword(Hashtable<String, String> data, RESTActions actions) throws Throwable {
+		
+		String url = "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/password/forgot";
+						 
+		// Build JSON Object with User name and Security Question - Answer			
+		jsonStr = "{\"username\":\""+data.get("ForgotPin_username")+"\",\"securityQuestionAnswers\":[{\"securityQuestion\":\""+data.get("SecurityQuestion")+"\",\"securityAnswer\":\""+data.get("SecurityAnswer")+"\"}]}";
+
+		// Make HTTP Post request to get Security Question
+		clientResponse = actions.postClientResponse(url, jsonStr,DataUtils.getHeaderForRetailApi(), null,null);
+		resp = clientResponse.getEntity(String.class);
+		
+		//Logging url, status and Response
+		loggingStatus(url);
+		
+		// De-serialize the Response into a JSON Object
+		Gson g = new Gson();
+		respObj1 = g.fromJson(resp, jsonClass1);
+		
+		//Store the verification token into variable
+		String verificationToken = respObj1.getVerificationToken().toString().trim();
+		
+		if (HttpURLConnection.HTTP_OK == clientResponse.getStatus()) {
+			
+			if(respObj1.getCustomerId().equalsIgnoreCase(data.get("customerId"))&& respObj1.getContactId().equals(data.get("contactId"))){
+			
+			actions.successReport("Password Forgot POST request...", ""+url);
+			actions.successReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_OK, "Actual Http Response code is - "+clientResponse.getStatus());
+			actions.successReport("Sending Http request body with security question answer details ...", ""+jsonStr);
+			actions.successReport("Response from server - ",""+resp);
+			
+			}
+		}
+
+		else{ 
+		actions.failureReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_OK, "Actual Http Response code is - "+clientResponse.getStatus());
+		}
+		return verificationToken;
+	}
+
+	/**
+	 * @param data
+	 * @param actions
+	 * @throws Throwable
+	 */
+	private static void verifyToken(Hashtable<String, String> data, RESTActions actions, String verificationToken) throws Throwable {
+		
+		String url = "https://lab7319.ctsservice.com/nis/retailapi/v1/customer/CMS000001000/password/verifytoken";
+		 
+		// Build JSON Object with User name and Security Question - Answer			
+		jsonStr = "{\"username\":\""+data.get("ForgotPin_username")+"\",\"verificationToken\":\""+verificationToken+"\",\"newPassword\":\""+data.get("newPassword")+"\"}";
+				
+		// Make HTTP Post request to get Security Question
+		clientResponse = actions.postClientResponse(url, jsonStr,DataUtils.getHeaderForRetailApi(), null,null);
+				
+		if (HttpURLConnection.HTTP_NO_CONTENT == clientResponse.getStatus()) {				
+			actions.successReport("Password Verify Token POST request...", ""+url);
+			actions.successReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_NO_CONTENT, "Actual Http Response code is - "+clientResponse.getStatus());
+		}
+		else
+			actions.failureReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_NO_CONTENT, "Actual Http Response code is - "+clientResponse.getStatus());
+	}
+	
+	/**
 	 * @param data
 	 * @param actions
 	 * @throws Throwable
@@ -523,9 +632,8 @@ public class MerchantPatronAuthenticatePost {
 	private static void getSecurityQuestion(Hashtable<String, String> data, RESTActions actions) throws Throwable {
 		
 		//Get Security Question
-		
-		String url = "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/securityquestion";
-		
+		 String url = "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/securityquestion"; 
+
 		// Build JSON Object with User name and Password
 		 jsonStr = "{\"username\":\""+data.get("ForgotPin_username")+"\"}";
 
@@ -534,7 +642,7 @@ public class MerchantPatronAuthenticatePost {
 		resp = clientResponse.getEntity(String.class);
 		
 		//Logging url, status and Response
-		loggingStatus();
+		loggingStatus(url);
 
 		// De-serialize the Response into a JSON Object
 		gsonDeserializeResp(); 
@@ -545,9 +653,10 @@ public class MerchantPatronAuthenticatePost {
 		if (HttpURLConnection.HTTP_OK == clientResponse.getStatus()) {
 
 			if(ExpectedResp.equalsIgnoreCase(resp)){
-			logURLStatus(actions);
-			actions.successReport("Sending Http request body with valid username ...", ""+jsonStr);
-			logExpectedActualResp(actions, ExpectedResp);
+				actions.successReport("Get Security Question POST request...", ""+url);
+				actions.successReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_OK, "Actual Http Response code is - "+clientResponse.getStatus());
+				actions.successReport("Sending Http request body with valid username ...", ""+jsonStr);
+				logExpectedActualResp(actions, ExpectedResp);
 			
 		}
 		else
@@ -559,6 +668,12 @@ public class MerchantPatronAuthenticatePost {
 						
 		}
 	}
+
+	/*
+	 * This method is used to test Login - Multiple Users - C274844
+	 * @param data
+	 * @param actions
+	 */
 
 	public static void verifyLoginWithMultipleUsers(Hashtable<String, String> data, RESTActions actions) {
 		
@@ -574,7 +689,7 @@ public class MerchantPatronAuthenticatePost {
 			patronClientResponse(actions);
 			
 			//Logging url, status and Response
-			loggingStatus();
+			loggingStatus(url);
 
 			// De-serialize the Response into a JSON Object
 			gsonDeserializeResp();  
@@ -582,21 +697,9 @@ public class MerchantPatronAuthenticatePost {
 			//Expected API Response
 			String ExpectedResp = "{\""+data.get("EXPECTED_FIELDNAME1")+"\":\""+data.get("EXPECTED_FIELDNAME1_VALUE")+"\",\""+data.get("EXPECTED_FIELDNAME2")+"\":\""+data.get("EXPECTED_FIELDNAME2_VALUE")+"\"}";
 			
-			if (HttpURLConnection.HTTP_OK == clientResponse.getStatus()) {
-				
-				if(ExpectedResp.equalsIgnoreCase(resp)){
-				
-					logURLStatus(actions);
-					actions.successReport("Sending Http request body with valid username and password...", ""+jsonStr);
-					logExpectedActualResp(actions, ExpectedResp);
-					
-				}
-				else
-					actions.failureReport("Expecting Response - " + ExpectedResp,"Actual Response - " +resp);
-			}
-			else 
-				actions.failureReport("Expecting  Http Response code is -"+HttpURLConnection.HTTP_OK, "Actual Http Response code is - "+clientResponse.getStatus());		
-	
+			//Expected Authenticate Response
+			authenticateExpectedResp(actions, ExpectedResp);		
+
 		}
 		catch (Exception e) {
 			LOG.error(Log4jUtil.getStackTrace(e));
