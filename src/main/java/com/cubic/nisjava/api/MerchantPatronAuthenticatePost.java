@@ -68,8 +68,8 @@ public class MerchantPatronAuthenticatePost {
 			gsonDeserializeResp(); 
 			
 			//Expected API Response
-			String ExpectedResp = "{\""+data.get("EXPECTED_FIELDNAME1")+"\":\""+data.get("EXPECTED_FIELDNAME1_VALUE")+"\",\""+data.get("EXPECTED_FIELDNAME2")+"\":\""+data.get("EXPECTED_FIELDNAME2_VALUE")+"\"}";
-			
+			String ExpectedResp = "{\""+data.get("EXPECTED_FIELDNAME1")+"\":\""+data.get("EXPECTED_FIELDNAME1_VALUE")+"\",\""+data.get("EXPECTED_FIELDNAME3")+"\":"+data.get("EXPECTED_FIELDNAME3_VALUE")+",\""+data.get("EXPECTED_FIELDNAME4")+"\":"+data.get("EXPECTED_FIELDNAME4_VALUE")+",\""+data.get("EXPECTED_FIELDNAME2")+"\":\""+data.get("EXPECTED_FIELDNAME2_VALUE")+"\"}";
+							
 			//Expected Authenticate Response
 			authenticateExpectedResp(actions, ExpectedResp);		
 	
@@ -162,7 +162,7 @@ public class MerchantPatronAuthenticatePost {
 			gsonDeserializeResp();  
 			
 			//Expected API Response
-			String ExpectedResp = "{\""+data.get("EXPECTED_FIELDNAME1")+"\":\""+data.get("EXPECTED_FIELDNAME1_VALUE")+"\",\""+data.get("EXPECTED_FIELDNAME2")+"\":\""+data.get("EXPECTED_FIELDNAME2_VALUE")+"\"}";
+			String ExpectedResp = "{\""+data.get("EXPECTED_FIELDNAME1")+"\":\""+data.get("EXPECTED_FIELDNAME1_VALUE")+"\",\""+data.get("EXPECTED_FIELDNAME3")+"\":"+data.get("EXPECTED_FIELDNAME3_VALUE")+",\""+data.get("EXPECTED_FIELDNAME4")+"\":"+data.get("EXPECTED_FIELDNAME4_VALUE")+",\""+data.get("EXPECTED_FIELDNAME2")+"\":\""+data.get("EXPECTED_FIELDNAME2_VALUE")+"\"}";
 			
 			if (HttpURLConnection.HTTP_OK == clientResponse.getStatus()) {
 
@@ -462,7 +462,7 @@ public class MerchantPatronAuthenticatePost {
 
 				logURLStatusBadRequest(actions);
 				actions.successReport("Sending Http request body with Blank Auth ...", ""+jsonStr);
-				actions.successReport("Expecting Response is - " + ExpectedResp,"Actual Response is - " +resp);
+				logExpectedActualResp(actions, ExpectedResp);
 				
 			}
 			
@@ -695,7 +695,7 @@ public class MerchantPatronAuthenticatePost {
 			gsonDeserializeResp();  
 			
 			//Expected API Response
-			String ExpectedResp = "{\""+data.get("EXPECTED_FIELDNAME1")+"\":\""+data.get("EXPECTED_FIELDNAME1_VALUE")+"\",\""+data.get("EXPECTED_FIELDNAME2")+"\":\""+data.get("EXPECTED_FIELDNAME2_VALUE")+"\"}";
+			String ExpectedResp = "{\""+data.get("EXPECTED_FIELDNAME1")+"\":\""+data.get("EXPECTED_FIELDNAME1_VALUE")+"\",\""+data.get("EXPECTED_FIELDNAME3")+"\":"+data.get("EXPECTED_FIELDNAME3_VALUE")+",\""+data.get("EXPECTED_FIELDNAME4")+"\":"+data.get("EXPECTED_FIELDNAME4_VALUE")+",\""+data.get("EXPECTED_FIELDNAME2")+"\":\""+data.get("EXPECTED_FIELDNAME2_VALUE")+"\"}";
 			
 			//Expected Authenticate Response
 			authenticateExpectedResp(actions, ExpectedResp);		
