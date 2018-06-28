@@ -1,14 +1,10 @@
 package com.cubic.nisjava.api;
 
 import java.net.HttpURLConnection;
-
 import java.util.Hashtable;
-
 import org.apache.log4j.Logger;
 import org.testng.Assert;
-
 import com.cubic.accelerators.RESTActions;
-import com.cubic.backoffice.constants.BackOfficeGlobals;
 import com.cubic.backoffice.utils.BackOfficeUtils;
 import com.cubic.logutils.Log4jUtil;
 import com.cubic.nisjava.apiobjects.WSPatronAuthenticateRequest;

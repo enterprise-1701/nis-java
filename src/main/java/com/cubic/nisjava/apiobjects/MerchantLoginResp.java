@@ -1,5 +1,4 @@
 /**
-
  * 
  */
 package com.cubic.nisjava.apiobjects;
