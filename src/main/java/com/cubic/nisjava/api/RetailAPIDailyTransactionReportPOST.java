@@ -79,7 +79,7 @@ public class RetailAPIDailyTransactionReportPOST
 		//Validate Response Field
 		if(DataUtils.validateResponseCode(restActions, data.get("ExpectedResponseCode"), clientResponse))
 		{
-			restActions.successReport("Verified All User's data", "Verifying All user's data under customerId "+data.get("CustomerId"));
+			restActions.successReport("Verifying All User's data", "Verifying All user's data under customerId "+data.get("CustomerId"));
 			validateResponseForListOfTransactions(restActions,data);
 		}
 	}
