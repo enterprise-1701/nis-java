@@ -11,7 +11,10 @@ public class WSName {
 	@SerializedName("lastName")
 	@Expose
 	private String lastName;
-
+	
+	@SerializedName("title")
+	@Expose
+	private String title;
 	public String getFirstName() {
 		return firstName;
 	}
@@ -27,5 +30,11 @@ public class WSName {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	public String getTitle() {
+		return title;
+	}
 
+	public void setTitle(String title) {
+		this.title = title;
+	}
 }
