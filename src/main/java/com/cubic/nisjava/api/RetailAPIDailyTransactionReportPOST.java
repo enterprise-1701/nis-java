@@ -7,15 +7,11 @@ package com.cubic.nisjava.api;
 import java.util.Hashtable;
 import java.util.List;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.RestoreAction;
-
 import org.apache.log4j.Logger;
-
 import com.cubic.accelerators.RESTActions;
 import com.cubic.accelerators.RESTConstants;
 import com.cubic.backoffice.constants.BackOfficeGlobals;
 import com.cubic.backoffice.utils.BackOfficeUtils;
-import com.cubic.nisjava.apiobjects.WSRetailCustomerUserInfo;
 import com.cubic.nisjava.apiobjects.WSRetailerTransaction;
 import com.cubic.nisjava.apiobjects.WSRetailerTransactionRequest;
 import com.cubic.nisjava.apiobjects.WSRetailerTransactionsResponse;
@@ -39,6 +35,7 @@ public class RetailAPIDailyTransactionReportPOST
 	static Class<WSRetailerTransactionsResponse> jsonClass = 	WSRetailerTransactionsResponse.class;
 	static String jsonStr = "";
 	static String resp = "";
+
 
 	/**
 	 * @param restActions
@@ -79,10 +76,12 @@ public class RetailAPIDailyTransactionReportPOST
 		//Validate Response Field
 		if(DataUtils.validateResponseCode(restActions, data.get("ExpectedResponseCode"), clientResponse))
 		{
-			restActions.successReport("Verifying All User's data", "Verifying All user's data under customerId "+data.get("CustomerId"));
+			restActions.successReport("Verifying All User's Transaction data", "Verifying All user's data under customerId "+data.get("CustomerId"));
+			validateAllUsersTransactionsForACustomerAdmin(restActions,data);
+			restActions.successReport("Verifyied All User's Transaction data", "Verified All user's data under customerId "+data.get("CustomerId"));
 			validateResponseForListOfTransactions(restActions,data);
 		}
-	}
+	}	
 	/**
 	 * @param restActions
 	 * @param data
@@ -96,8 +95,100 @@ public class RetailAPIDailyTransactionReportPOST
 		//Validate Response Field
 		if(DataUtils.validateResponseCode(restActions, data.get("ExpectedResponseCode"), clientResponse))
 		{
+			restActions.successReport("Verifying All  manager and employee's Transaction data", "Verifying all manager and employee's transactions under the same customerId "+data.get("CustomerId"));
+			validateAllUsersTransactionsForACustomerManager(restActions,data);
+			restActions.successReport("Verifyied All  manager and employee's Transaction data", "Verified all manager and employee's transactions under the same customerId "+data.get("CustomerId"));
 			validateResponseForListOfTransactions(restActions,data);
 		}
+	}
+	/**
+	 * @param restActions
+	 * @param data
+	 */
+	private static void validateAllUsersTransactionsForACustomerAdmin(RESTActions restActions,Hashtable<String, String> data)
+	{
+		if(iterateResponseToValidateUserInTransaction(restActions,data.get("Cust_CMS000005210_Admin")))
+		{
+			restActions.successReport("Verifying user(Admin) "+data.get("Cust_CMS000005210_Admin")+ " Transactions in Response", "Admin "+data.get("Cust_CMS000005210_Admin")+" Transactions is available in Response");
+		}
+		else
+		{
+			restActions.failureReport("Verifying user(Admin) "+data.get("Cust_CMS000005210_Admin")+ " Transactions in Response", "Admin "+data.get("Cust_CMS000005210_Admin")+" Transactions is not available in Response");
+		}		
+		verifyIsManagerAndEmployeeTransactionsAvailable(restActions,data);				
+	}
+	/**
+	 * @param restActions
+	 * @param transactions
+	 * @param user
+	 */
+	private static boolean iterateResponseToValidateUserInTransaction(RESTActions restActions, String user)
+	{
+		List<WSRetailerTransaction> transactions = respObj.getTransactions().getTransactions();
+		Boolean flag = false;
+		for(int i=0;i<transactions.size();i++)
+		{			
+			if(transactions.get(i).getEmployeeInfo().getEmployeeId()==Integer.parseInt(user))
+			{
+				flag=true;
+			}
+		}
+		return flag;		
+	}
+
+	/**
+	 * @param restActions
+	 * @param data
+	 */
+	private static void validateAllUsersTransactionsForACustomerManager(RESTActions restActions,Hashtable<String, String> data) 
+	{
+		if(iterateResponseToValidateUserInTransaction(restActions,data.get("Cust_CMS000005210_Admin")))
+		{
+			restActions.failureReport("Verifying user(Admin) "+data.get("Cust_CMS000005210_Admin")+ " Transactions in Response", data.get("Cust_CMS000005210_Admin")+" who is an admin employee id is available in Transactions Response of a Manager");
+		}
+		verifyIsManagerAndEmployeeTransactionsAvailable(restActions,data);
+	}
+	/**
+	 * @param restActions
+	 * @param data
+	 */
+	private static void verifyIsManagerAndEmployeeTransactionsAvailable(RESTActions restActions,Hashtable<String, String> data) 
+	{
+		if(iterateResponseToValidateUserInTransaction(restActions,data.get("Cust_CMS000005210_Manager1")))
+		{
+			restActions.successReport("Verifying user(Manager) "+data.get("Cust_CMS000005210_Manager1")+ " Transactions in Response", "Manager "+data.get("Cust_CMS000005210_Manager1")+" Transactions is available in Response");
+		}
+		else
+		{
+			restActions.failureReport("Verifying user(Manager) "+data.get("Cust_CMS000005210_Manager1")+ " Transactions in Response", "Manager "+data.get("Cust_CMS000005210_Manager1")+" Transactions is not available in Response");
+		}
+
+		if(iterateResponseToValidateUserInTransaction(restActions,data.get("Cust_CMS000005210_Manager2")))
+		{
+			restActions.successReport("Verifying user(Manager) "+data.get("Cust_CMS000005210_Manager2")+ " Transactions in Response", "Manager "+data.get("Cust_CMS000005210_Manager2")+" Transactions is available in Response");
+		}
+		else
+		{
+			restActions.failureReport("Verifying user(Manager) "+data.get("Cust_CMS000005210_Manager2")+ " Transactions in Response", "Manager "+data.get("Cust_CMS000005210_Manager2")+" Transactions is not available in Response");
+		}
+
+		if(iterateResponseToValidateUserInTransaction(restActions,data.get("Cust_CMS000005210_Employee1")))
+		{
+			restActions.successReport("Verifying user(Employee) "+data.get("Cust_CMS000005210_Employee1")+ " Transactions in Response", "Employee "+data.get("Cust_CMS000005210_Employee1")+" Transactions is available in Response");
+		}
+		else
+		{
+			restActions.failureReport("Verifying user(Employee) "+data.get("Cust_CMS000005210_Employee1")+ " Transactions in Response", "Employee "+data.get("Cust_CMS000005210_Employee1")+" Transactions is not available in Response");
+		}
+
+		if(iterateResponseToValidateUserInTransaction(restActions,data.get("Cust_CMS000005210_Employee2")))
+		{
+			restActions.successReport("Verifying user(Employee) "+data.get("Cust_CMS000005210_Employee2")+ " Transactions in Response", "Employee "+data.get("Cust_CMS000005210_Employee2")+" Transactions is available in Response");
+		}
+		else
+		{
+			restActions.failureReport("Verifying user(Employee) "+data.get("Cust_CMS000005210_Employee2")+ " Transactions in Response", "Employee "+data.get("Cust_CMS000005210_Employee2")+" Transactions is not available in Response");
+		}		
 	}
 	/**
 	 * @param restActions
@@ -158,7 +249,6 @@ public class RetailAPIDailyTransactionReportPOST
 	{
 		restActions.successReport("No of transactions returned in response ", "       "+respObj.getTransactions().getTransactions().size());
 		restActions.assertTrue(respObj.getTransactions().getTransactions().size()==0, "No Transactions has been returned in Response as size of the Transactions list is 0");
-
 	}
 	/**
 	 * @param restActions
@@ -188,7 +278,6 @@ public class RetailAPIDailyTransactionReportPOST
 			DataUtils.validateResponseStringFieldForNullValues(restActions, transactionsList.get(i).getEmployeeInfo().getEmployeeName().getLastName(), data.get("Field_Transactions_Employee_LastName"));
 			DataUtils.validateResponseStringFieldForNullValues(restActions, transactionsList.get(i).getEmployeeInfo().getUsername(), data.get("Field_Transactions_Employee_UserName"));
 		}
-
 		restActions.successReport("Validated Response", "Verified Response contains List of Transactions(ItemType,Quantity,LineiTem Totla, Employee Id) without any null values");
 	}
 
