@@ -1,5 +1,6 @@
 package com.cubic.nisjava.utils;
 
+import java.io.IOException;
 import java.rmi.server.UID;
 
 
@@ -18,6 +19,11 @@ import com.cubic.nisjava.apiobjects.WSCustomerRegisterRequest;
 import com.cubic.nisjava.apiobjects.WSName;
 import com.cubic.nisjava.apiobjects.WSPatronAuthenticateRequest;
 import com.cubic.nisjava.apiobjects.WSPhone;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.ClientResponse;
 
 /**
@@ -125,14 +131,13 @@ public class DataUtils {
 	 * Method to validate the response code against the expected response code from Client response
 	 */
 	public static boolean validateResponseCode(RESTActions restActions, String expectedResponseCode, ClientResponse clientResponse)
-	{
-		int status = clientResponse.getStatus();					
-		LOG.info("Http Status is ... "+ status);
-		restActions.successReport("Http Response Status Code: ", ""+status);
+	{		
+		LOG.info("Http Status is ... "+ clientResponse.getStatus());
+		restActions.successReport("Http Response Status Code: ", ""+clientResponse.getStatus());
 		int statusExpected = Integer.parseInt(expectedResponseCode);
-		String msg = "HTTP RESPONSE CODE - EXPECTED "+expectedResponseCode+", FOUND " + status;
-		restActions.assertTrue(status == statusExpected, msg);
-		if(status == statusExpected)
+		String msg = "HTTP RESPONSE CODE - EXPECTED "+expectedResponseCode+", FOUND " + clientResponse.getStatus();
+		restActions.assertTrue(clientResponse.getStatus() == statusExpected, msg);
+		if(clientResponse.getStatus() == statusExpected)
 		{
 			return true;
 		}
@@ -159,6 +164,20 @@ public class DataUtils {
 		return header;  			                
 	}
 
+	/**
+	 * @return
+	 * @throws IOException
+	 * @throws JsonParseException
+	 * @throws JsonMappingException
+	 * @throws JsonProcessingException
+	 */
+	public static ObjectMapper jsonPrinter(String resp) throws IOException, JsonParseException, JsonMappingException, JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		Object jsonObject = mapper.readValue(resp, Object.class);
+		LOG.info("API Response: \n" + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject));
+		return mapper;
+	}
 }
 
 	
