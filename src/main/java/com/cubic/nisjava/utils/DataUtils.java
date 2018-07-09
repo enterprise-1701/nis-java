@@ -5,12 +5,14 @@ import java.rmi.server.UID;
 
 import java.util.Hashtable;
 import java.util.UUID;
+
 import org.apache.log4j.Logger;
 
 import com.cubic.accelerators.RESTActions;
 import com.cubic.accelerators.RESTConstants;
 import com.cubic.backoffice.constants.BackOfficeGlobals;
 import com.cubic.backoffice.utils.BackOfficeUtils;
+import com.cubic.nisjava.apiobjects.Device;
 import com.cubic.nisjava.apiobjects.MerchantLogin;
 import com.cubic.nisjava.apiobjects.OptionalData;
 import com.cubic.nisjava.apiobjects.WSAddressExt;
@@ -158,6 +160,41 @@ public class DataUtils {
 		header.put(BackOfficeGlobals.BACKOFFICE_AUTHORIZATION_HDR_NAME, BackOfficeGlobals.BACKOFFICE_AUTHORIZATION_HDR_VALUE);				
 		return header;  			                
 	}
+	
+	
+	/**
+	 * Method to verify Response object attribute as Integer value and for Null values
+	 * @Param.Paramanathan restActions
+	 * @Param.Paramanathan string
+	 * @Param.Paramanathan string
+	 */
+	public static void validateResponseIntegerField(RESTActions restActions ,Integer responseFieldValue, String fieldName) 
+	{
+		validateResponseStringFieldForNullValues(restActions, String.valueOf(responseFieldValue),fieldName);
+	}	
+	/**
+	 * Method to verify Response object attribute as String value and for Null values
+	 * @Param.Paramanathan restActions
+	 * @Param.Paramanathan responseField
+	 * @Param.Paramanathan attribute
+	 */
+	public static void validateResponseStringFieldForNullValues(RESTActions restActions, String responseField, String attribute) 
+	{
+		try
+		{
+			LOG.info(attribute +" : " +responseField);
+			if(responseField.isEmpty())
+			{
+				restActions.failureReport("Validating "+attribute, attribute+" is having Null value i.e., "+responseField);
+			}
+		}
+		catch(Exception e)
+		{
+			LOG.info(responseField+" : Issue getting info about "+attribute);
+		}
+	}
+
+
 
 }
 
