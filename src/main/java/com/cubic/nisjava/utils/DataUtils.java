@@ -1,11 +1,13 @@
 package com.cubic.nisjava.utils;
 
+import java.io.IOException;
 import java.rmi.server.UID;
-
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.UUID;
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.map.JsonMappingException;
 
 import com.cubic.accelerators.RESTActions;
 import com.cubic.accelerators.RESTConstants;
@@ -18,6 +20,8 @@ import com.cubic.nisjava.apiobjects.WSCustomerRegisterRequest;
 import com.cubic.nisjava.apiobjects.WSName;
 import com.cubic.nisjava.apiobjects.WSPatronAuthenticateRequest;
 import com.cubic.nisjava.apiobjects.WSPhone;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.ClientResponse;
 
 /**
@@ -36,6 +40,7 @@ public class DataUtils {
 	public static String url = "http://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/nwapi/v1.1/patron/";
 	public static String uid = new UID().toString();
 	public static Hashtable<String, String> headerMap = BackOfficeUtils.nisPatchHeaderWithUid(uid);
+	static ObjectMapper mapper =  new ObjectMapper();
 
 	/*
 	 * To generate Random email
@@ -158,7 +163,78 @@ public class DataUtils {
 		header.put(BackOfficeGlobals.BACKOFFICE_AUTHORIZATION_HDR_NAME, BackOfficeGlobals.BACKOFFICE_AUTHORIZATION_HDR_VALUE);				
 		return header;  			                
 	}
+	/*
+	 * Method to get the current date in ISO8601 in String format
+	 */
+	public static String getCurrentDateInISO8601Format()
+	{
+		Date javaUtilDate= new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd\'T\'HH:mm:ss");
+		return formatter.format(javaUtilDate);
+	}	
+	/**
+	 * @param resp
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
+	 */
+	public static void printResponseWithPrettyPrinter(String resp) throws JsonParseException, JsonMappingException, IOException 
+	{
+		  Object jsonObject = mapper.readValue(resp, Object.class);
+	      LOG.info("API Response: \n" + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject));		
+	}	
+	/**
+	 * Method to verify Response object attribute as Integer value and for Null values
+	 * @param restActions
+	 * @param string
+	 * @param string
+	 */
+	public static void validateResponseIntegerField(RESTActions restActions ,Integer responseFieldValue, String fieldName) 
+	{
+		validateResponseStringFieldForNullValues(restActions, String.valueOf(responseFieldValue),fieldName);
+	}	
+	/**
+	 * Method to verify Response object attribute as String value and for Null values
+	 * @param restActions
+	 * @param responseField
+	 * @param attribute
+	 */
+	public static void validateResponseStringFieldForNullValues(RESTActions restActions, String responseField, String attribute) 
+	{
+		try
+		{
+			LOG.info(attribute +" : " +responseField);
+			if(responseField.isEmpty())
+			{
+				restActions.failureReport("Validating "+attribute, attribute+" is having Null value i.e., "+responseField);
+			}
+		}
+		catch(Exception e)
+		{
+			LOG.info(responseField+" : Issue getting info about "+attribute);
+		}
+	}
 
+	/**
+	 * @param restActions
+	 * @param expectedFieldValue
+	 * @param responseFieldValue
+	 * * @param fieldName
+	 */
+	public static void validateResponseFieldValue(RESTActions restActions, String expectedFieldValue, String responseFieldValue, String fieldName) 
+	{
+		String message = "Expected "+fieldName+" ::-"+expectedFieldValue+"-:: Found "+fieldName+" from Response is ::-"+responseFieldValue+"-::";
+		if(expectedFieldValue.equals(responseFieldValue))
+		{
+			LOG.info(message);
+			restActions.successReport("Validating "+fieldName, message);
+		}
+		else
+		{
+			LOG.info(message);
+			restActions.failureReport("Validating "+fieldName, message);
+		}		
+	}
 }
 
 	
