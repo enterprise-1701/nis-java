@@ -5,6 +5,7 @@
 package com.cubic.nisjava.api;
 
 import java.util.Hashtable;
+
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -27,7 +28,7 @@ public class RetailAPIDailyTransactionReportPOST
 	}
 	public static final String CLASS_NAME = "RetailAPIDailyTransactionReportPOST";
 	private static final Logger LOG = Logger.getLogger(CLASS_NAME);
-	static String baseUrl =  "https://" + BackOfficeGlobals.ENV.NIS_HOST+ "/nis/retailapi/v1/customer/";
+	static String baseUrl =  "https://" + BackOfficeGlobals.ENV.NIS_HOST+ ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/";
 	static String url;
 	static ClientResponse clientResponse;
 	static WSRetailerTransactionRequest  jsonObj = null;	
