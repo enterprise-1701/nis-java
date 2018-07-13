@@ -463,7 +463,7 @@ public class ViewEditMerchantSubaccountGETAndPATCH
 	 */
 	private static void validateViewEditMerchantSubaccountUserDetails(RESTActions restActions,Hashtable<String, String> data) 
 	{
-		restActions.successReport("Verifying Response for User : "+data.get("User"), "Verifying Response : whether Important fields returned with appropriate values");
+		restActions.successReport("Verifying Response for User : "+data.get("User"), "Verifying Response : whether Important fields returned without Null values");
 		DataUtils.validateResponseStringFieldForNullValues(restActions, respObj.getUser().getUserId(), data.get("UserId"));
 		DataUtils.validateResponseStringFieldForNullValues(restActions, respObj.getUser().getUserType(), data.get("UserType"));
 		DataUtils.validateResponseStringFieldForNullValues(restActions, respObj.getUser().getName().getFirstName(), data.get("FirstName"));
@@ -471,7 +471,7 @@ public class ViewEditMerchantSubaccountGETAndPATCH
 		DataUtils.validateResponseStringFieldForNullValues(restActions, respObj.getUser().getUsername(), data.get("UserName"));
 		DataUtils.validateResponseStringFieldForNullValues(restActions, respObj.getUser().getUserStatus(), data.get("UserStatus"));
 		DataUtils.validateResponseStringFieldForNullValues(restActions, respObj.getUser().getCredentialStatus(), data.get("CredentialStatus"));	
-		restActions.successReport("Verified Response for User : "+data.get("User"), "Verified Response : Important fields returned with appropriate values");
+		restActions.successReport("Verified Response for User : "+data.get("User"), "Verified Response : Important fields returned without Null values");
 	}
 
 	/**
