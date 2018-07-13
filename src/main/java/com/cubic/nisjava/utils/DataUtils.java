@@ -2,8 +2,8 @@ package com.cubic.nisjava.utils;
 
 import java.io.IOException;
 import java.rmi.server.UID;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
+
 import java.util.Hashtable;
 import java.util.UUID;
 import org.apache.log4j.Logger;
@@ -50,7 +50,6 @@ public class DataUtils {
 				+ BackOfficeGlobals.BACKOFFICE_DEFAULT_EMAIL_ADDRESS_PROVIDER;
 		return randomEmail;
 	}
-
 	/*
 	 * To generate Random UserName
 	 */
@@ -58,7 +57,6 @@ public class DataUtils {
 		String randomUsername = BackOfficeUtils.generateRandomString(4);
 		return randomUsername;
 	}
-
 	/*
 	 * To create Patron Account
 	 */
@@ -92,9 +90,7 @@ public class DataUtils {
 		name.setLastName(data.get("LastName"));
 		jsonObj.setName(name);
 		return jsonObj;
-
 	}
-
 	/*
 	 * To verify Patron Authentication
 	 */
@@ -104,7 +100,6 @@ public class DataUtils {
 		jsonObj.setPassword(password);
 		return jsonObj;
 	}
-
 	/*
 	 * To verify Patron Authentication
 	 */
@@ -115,7 +110,6 @@ public class DataUtils {
 		jsonObj.setDeviceSerialNumber(deviceSerialNumber);
 		return jsonObj;
 	}
-
 	/*
 	 * To verify Patron Authentication Without DeviceSerialNumber
 	 */
@@ -124,8 +118,7 @@ public class DataUtils {
 		jsonObj.setUsername(Username);
 		jsonObj.setPassword(password);
 		return jsonObj;
-	}
-	
+	}	
 	/*
 	 * Method to validate the response code against the expected response code from Client response
 	 */
@@ -145,8 +138,7 @@ public class DataUtils {
 		{
 			return false;
 		}
-	}	
-	
+	}		
 	/*
 	 * Method to create Request Header for RetailAPI
 	 */
@@ -163,58 +155,6 @@ public class DataUtils {
 		header.put(BackOfficeGlobals.BACKOFFICE_AUTHORIZATION_HDR_NAME, BackOfficeGlobals.BACKOFFICE_AUTHORIZATION_HDR_VALUE);				
 		return header;  			                
 	}
-	/*
-	 * Method to get the current date in ISO8601 in String format
-	 */
-	public static String getCurrentDateInISO8601Format()
-	{
-		Date javaUtilDate= new Date();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd\'T\'HH:mm:ss");
-		return formatter.format(javaUtilDate);
-	}	
-	/**
-	 * @param resp
-	 * @throws IOException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
-	 */
-	public static void printResponseWithPrettyPrinter(String resp) throws JsonParseException, JsonMappingException, IOException 
-	{
-		  Object jsonObject = mapper.readValue(resp, Object.class);
-	      LOG.info("API Response: \n" + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject));		
-	}	
-	/**
-	 * Method to verify Response object attribute as Integer value and for Null values
-	 * @param restActions
-	 * @param string
-	 * @param string
-	 */
-	public static void validateResponseIntegerField(RESTActions restActions ,Integer responseFieldValue, String fieldName) 
-	{
-		validateResponseStringFieldForNullValues(restActions, String.valueOf(responseFieldValue),fieldName);
-	}	
-	/**
-	 * Method to verify Response object attribute as String value and for Null values
-	 * @param restActions
-	 * @param responseField
-	 * @param attribute
-	 */
-	public static void validateResponseStringFieldForNullValues(RESTActions restActions, String responseField, String attribute) 
-	{
-		try
-		{
-			LOG.info(attribute +" : " +responseField);
-			if(responseField.isEmpty())
-			{
-				restActions.failureReport("Validating "+attribute, attribute+" is having Null value i.e., "+responseField);
-			}
-		}
-		catch(Exception e)
-		{
-			LOG.info(responseField+" : Issue getting info about "+attribute);
-		}
-	}
-
 	/**
 	 * @param restActions
 	 * @param expectedFieldValue
@@ -235,6 +175,53 @@ public class DataUtils {
 			restActions.failureReport("Validating "+fieldName, message);
 		}		
 	}
+	/**
+	 * Method to verify Response object attribute as Integer value and for Null values
+	 * @Param.Paramanathan restActions
+	 * @Param.Paramanathan string
+	 * @Param.Paramanathan string
+	 */
+	public static void validateResponseIntegerField(RESTActions restActions ,Integer responseFieldValue, String fieldName) 
+	{
+		validateResponseStringFieldForNullValues(restActions, String.valueOf(responseFieldValue),fieldName);
+	}	
+	/**
+	 * Method to verify Response object attribute as String value and for Null values
+	 * @Param.Paramanathan restActions
+	 * @Param.Paramanathan responseField
+	 * @Param.Paramanathan attribute
+	 */
+	public static void validateResponseStringFieldForNullValues(RESTActions restActions, String responseField, String attribute) 
+	{
+		try
+		{
+			LOG.info("Verifying if attribute contains null value --"+attribute +" : " +responseField);
+			if(responseField.isEmpty())
+			{
+				LOG.info("Validating "+attribute+"...."+ attribute+" is having Null value i.e., "+responseField);
+				restActions.failureReport("Validating "+attribute, attribute+" is having Null value i.e., "+responseField);
+			}
+			else
+			{
+				LOG.info("Validating "+attribute+"....###..."+ attribute+" is having value "+responseField);
+			}
+		}
+		catch(Exception e)
+		{
+			restActions.failureReport(attribute,"........"+responseField+" : Issue getting info about "+attribute);
+			LOG.info(responseField+" : Issue getting info about "+attribute);
+		}
+	}	
+	/**
+	 * @param resp
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
+	 */
+	public static void printResponseWithPrettyPrinter(String resp) throws JsonParseException, JsonMappingException, IOException 
+	{
+		  Object jsonObject = mapper.readValue(resp, Object.class);
+	      LOG.info("API Response: \n" + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject));		
+	}	
 }
 
-	
