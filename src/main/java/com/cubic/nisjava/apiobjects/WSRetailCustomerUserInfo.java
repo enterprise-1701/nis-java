@@ -32,6 +32,10 @@ public class WSRetailCustomerUserInfo
 	@Expose
 	private String userId;
 	
+	@SerializedName("name")
+	@Expose
+	private WSName name;
+	
 	@SerializedName("userStatus")
 	@Expose
 	private String userStatus;
@@ -132,4 +136,13 @@ public class WSRetailCustomerUserInfo
 	public void setEmail(String email) {
 	this.email = email;
 	}
+	
+	public WSName getName() {
+		return name;
+	}
+
+	public void setName(WSName name) {
+		this.name = name;
+	}
 }
+
