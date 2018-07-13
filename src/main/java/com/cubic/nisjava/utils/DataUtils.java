@@ -1,18 +1,18 @@
 package com.cubic.nisjava.utils;
 
+import java.io.IOException;
 import java.rmi.server.UID;
 
 
 import java.util.Hashtable;
 import java.util.UUID;
-
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.map.JsonMappingException;
 
 import com.cubic.accelerators.RESTActions;
 import com.cubic.accelerators.RESTConstants;
 import com.cubic.backoffice.constants.BackOfficeGlobals;
 import com.cubic.backoffice.utils.BackOfficeUtils;
-import com.cubic.nisjava.apiobjects.Device;
 import com.cubic.nisjava.apiobjects.MerchantLogin;
 import com.cubic.nisjava.apiobjects.OptionalData;
 import com.cubic.nisjava.apiobjects.WSAddressExt;
@@ -20,6 +20,8 @@ import com.cubic.nisjava.apiobjects.WSCustomerRegisterRequest;
 import com.cubic.nisjava.apiobjects.WSName;
 import com.cubic.nisjava.apiobjects.WSPatronAuthenticateRequest;
 import com.cubic.nisjava.apiobjects.WSPhone;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.jersey.api.client.ClientResponse;
 
 /**
@@ -38,6 +40,7 @@ public class DataUtils {
 	public static String url = "http://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/nwapi/v1.1/patron/";
 	public static String uid = new UID().toString();
 	public static Hashtable<String, String> headerMap = BackOfficeUtils.nisPatchHeaderWithUid(uid);
+	static ObjectMapper mapper =  new ObjectMapper();
 
 	/*
 	 * To generate Random email
@@ -47,7 +50,6 @@ public class DataUtils {
 				+ BackOfficeGlobals.BACKOFFICE_DEFAULT_EMAIL_ADDRESS_PROVIDER;
 		return randomEmail;
 	}
-
 	/*
 	 * To generate Random UserName
 	 */
@@ -55,7 +57,6 @@ public class DataUtils {
 		String randomUsername = BackOfficeUtils.generateRandomString(4);
 		return randomUsername;
 	}
-
 	/*
 	 * To create Patron Account
 	 */
@@ -89,9 +90,7 @@ public class DataUtils {
 		name.setLastName(data.get("LastName"));
 		jsonObj.setName(name);
 		return jsonObj;
-
 	}
-
 	/*
 	 * To verify Patron Authentication
 	 */
@@ -101,7 +100,6 @@ public class DataUtils {
 		jsonObj.setPassword(password);
 		return jsonObj;
 	}
-
 	/*
 	 * To verify Patron Authentication
 	 */
@@ -112,7 +110,6 @@ public class DataUtils {
 		jsonObj.setDeviceSerialNumber(deviceSerialNumber);
 		return jsonObj;
 	}
-
 	/*
 	 * To verify Patron Authentication Without DeviceSerialNumber
 	 */
@@ -121,8 +118,7 @@ public class DataUtils {
 		jsonObj.setUsername(Username);
 		jsonObj.setPassword(password);
 		return jsonObj;
-	}
-	
+	}	
 	/*
 	 * Method to validate the response code against the expected response code from Client response
 	 */
@@ -142,8 +138,7 @@ public class DataUtils {
 		{
 			return false;
 		}
-	}	
-	
+	}		
 	/*
 	 * Method to create Request Header for RetailAPI
 	 */
@@ -160,8 +155,26 @@ public class DataUtils {
 		header.put(BackOfficeGlobals.BACKOFFICE_AUTHORIZATION_HDR_NAME, BackOfficeGlobals.BACKOFFICE_AUTHORIZATION_HDR_VALUE);				
 		return header;  			                
 	}
-	
-	
+	/**
+	 * @param restActions
+	 * @param expectedFieldValue
+	 * @param responseFieldValue
+	 * * @param fieldName
+	 */
+	public static void validateResponseFieldValue(RESTActions restActions, String expectedFieldValue, String responseFieldValue, String fieldName) 
+	{
+		String message = "Expected "+fieldName+" ::-"+expectedFieldValue+"-:: Found "+fieldName+" from Response is ::-"+responseFieldValue+"-::";
+		if(expectedFieldValue.equals(responseFieldValue))
+		{
+			LOG.info(message);
+			restActions.successReport("Validating "+fieldName, message);
+		}
+		else
+		{
+			LOG.info(message);
+			restActions.failureReport("Validating "+fieldName, message);
+		}		
+	}
 	/**
 	 * Method to verify Response object attribute as Integer value and for Null values
 	 * @Param.Paramanathan restActions
@@ -182,20 +195,33 @@ public class DataUtils {
 	{
 		try
 		{
-			LOG.info(attribute +" : " +responseField);
+			LOG.info("Verifying if attribute contains null value --"+attribute +" : " +responseField);
 			if(responseField.isEmpty())
 			{
+				LOG.info("Validating "+attribute+"...."+ attribute+" is having Null value i.e., "+responseField);
 				restActions.failureReport("Validating "+attribute, attribute+" is having Null value i.e., "+responseField);
+			}
+			else
+			{
+				LOG.info("Validating "+attribute+"....###..."+ attribute+" is having value "+responseField);
 			}
 		}
 		catch(Exception e)
 		{
+			restActions.failureReport(attribute,"........"+responseField+" : Issue getting info about "+attribute);
 			LOG.info(responseField+" : Issue getting info about "+attribute);
 		}
-	}
-
-
-
+	}	
+	/**
+	 * @param resp
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
+	 */
+	public static void printResponseWithPrettyPrinter(String resp) throws JsonParseException, JsonMappingException, IOException 
+	{
+		  Object jsonObject = mapper.readValue(resp, Object.class);
+	      LOG.info("API Response: \n" + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject));		
+	}	
 }
 
-	
