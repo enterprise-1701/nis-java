@@ -6,6 +6,7 @@ package com.cubic.nisjava.api;
 
 import java.util.Hashtable;
 
+
 import org.apache.log4j.Logger;
 
 import com.cubic.accelerators.RESTActions;
@@ -31,8 +32,8 @@ public class ViewEditMerchantSubaccountGETAndPATCH
 	}
 	public static final String CLASS_NAME = "ViewEditMerchantSubaccountGETAndPATCH";
 	private static final Logger LOG = Logger.getLogger(CLASS_NAME);
-	static String baseUrl =  "https://" + BackOfficeGlobals.ENV.NIS_HOST+"/nis/retailapi/v1/customer/CMS000001000/user/";
-	static String merchantAuthUrl =  "https://" + BackOfficeGlobals.ENV.NIS_HOST+"/nis/retailapi/v1/customer/CMS000001000/authenticate";
+	static String baseUrl =  "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/user/";
+	static String merchantAuthUrl =  "https://" + BackOfficeGlobals.ENV.NIS_HOST + ":" + BackOfficeGlobals.ENV.NIS_PORT + "/nis/retailapi/v1/customer/CMS000001000/authenticate";
 	static ClientResponse clientResponse;
 	static ViewEditMerchantSubaccountRequest  jsonObj = null;	
 	static ViewEditMerchantSubaccountResponse respObj = null;
