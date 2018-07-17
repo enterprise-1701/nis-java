@@ -4,7 +4,7 @@
 
   <groupId>com.cubic.nisjava</groupId>
   <artifactId>NISJava</artifactId>
-  <version>1.13.0</version>
+  <version>1.13.1</version>
   <packaging>jar</packaging>
 
   <name>NISJava</name>
