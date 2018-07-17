@@ -4,7 +4,11 @@ import java.lang.reflect.Method;
 
 import org.testng.annotations.DataProvider;
 
+import com.cubic.backoffice.constants.BackOfficeGlobals;
+import com.cubic.backoffice.utils.FileUtils;
+
 import com.cubic.datadriven.TestDataUtil;
+
 import com.cubic.nisjava.constants.*;
 
 public class NISDataProviderSource {
@@ -39,7 +43,10 @@ public class NISDataProviderSource {
 	}
 	
 	public static void generateData(Method method) {
-		testDatafilePath = AppConstants.NIS_TEST_DATA_FOLDER + "/" + method.getDeclaringClass().getSimpleName() + ".json";
+		BackOfficeGlobals.ENV.setEnvironmentName();
+		//testDatafilePath = AppConstants.NIS_TEST_DATA_FOLDER + "/" + method.getDeclaringClass().getSimpleName() + ".json";
+		testDatafilePath = FileUtils.setTestCaseInputFilePath(AppConstants.TEST_DATA_FOLDER, 
+				method.getDeclaringClass().getSimpleName(), BackOfficeGlobals.ENV_NAME_FROM_JENKINS);
         parentElement = method.getName();
 	}
 	
