@@ -70,7 +70,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 
 		try {
 			
-			tcC612516(data, restActions);		 
+			tcviewMerchantProfileWithUserIdNotFound(data, restActions);		 
 			
 		}
 		catch (Exception e) {
@@ -93,7 +93,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @throws JsonProcessingException
 	 * @throws JsonSyntaxException
 	 */
-	private static void tcC612516(Hashtable<String, String> data, RESTActions restActions) throws ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
+	private static void tcviewMerchantProfileWithUserIdNotFound(Hashtable<String, String> data, RESTActions restActions) throws ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
 			JsonMappingException, JsonProcessingException, JsonSyntaxException {
 		String url = baseurl+data.get("UserId");
 					
@@ -101,7 +101,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 					
 		logUrlStatusResp(url);
 
-		//De-Ser
+		//De-Serilaize
 		deserializeGson();
 		
 		//Expected API Response
@@ -139,7 +139,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 
 		try {
 			
-			tcC612543(data, restActions);		 
+			tcEditMerchantProfileWithEmail(data, restActions);		 
 		}
 		catch (Exception e) {
 			catchExceptionE(e);
@@ -161,7 +161,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @throws JsonMappingException
 	 * @throws JsonProcessingException
 	 */
-	private static void tcC612543(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
+	private static void tcEditMerchantProfileWithEmail(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
 			JsonMappingException, JsonProcessingException {
 		
 		String url = urlAndUpdateEmail(data, restActions);
@@ -196,7 +196,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 
 		try {
 					
-			tcC612530(data, restActions);	
+			tcEditMerchantProfileWithEmailValueTooLong(data, restActions);	
 		}
 		catch (Exception e) {
 			catchExceptionE(e);
@@ -218,7 +218,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @throws JsonMappingException
 	 * @throws JsonProcessingException
 	 */
-	private static void tcC612530(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
+	private static void tcEditMerchantProfileWithEmailValueTooLong(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
 			JsonMappingException, JsonProcessingException {
 		String url = urlAndUpdateEmail(data, restActions);							
 
@@ -253,7 +253,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 
 		try {
 					
-			tcC612533(data, restActions);	
+			tcEditMerchantProfileWithEmailStartingWithSpecialCharacters(data, restActions);	
 	
 		}
 		catch (Exception e) {
@@ -276,7 +276,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @throws JsonMappingException
 	 * @throws JsonProcessingException
 	 */
-	private static void tcC612533(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
+	private static void tcEditMerchantProfileWithEmailStartingWithSpecialCharacters(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
 			JsonMappingException, JsonProcessingException {
 		
 		String url = urlAndUpdateEmail(data, restActions);							
@@ -312,7 +312,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 
 		try {
 					
-			tcC612528(data, restActions);	
+			tcEditMerchantProfileWithInvalidEmailFormat(data, restActions);	
 	
 		}
 		catch (Exception e) {
@@ -335,7 +335,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @throws JsonMappingException
 	 * @throws JsonProcessingException
 	 */
-	private static void tcC612528(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
+	private static void tcEditMerchantProfileWithInvalidEmailFormat(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
 			JsonMappingException, JsonProcessingException {
 		
 		String url = urlAndUpdateEmail(data, restActions);							
@@ -373,7 +373,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 		
 		try {
 			
-		tcC612519(data, restActions);			
+		tcEditMerchantProfileWithEmptyFirstName(data, restActions);			
 		}
 		catch (Exception e) {
 			catchExceptionE(e);
@@ -389,9 +389,9 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @param restActions
 	 * @throws Throwable
 	 */
-	private static void tcC612519(Hashtable<String, String> data, RESTActions restActions) throws Throwable {
+	private static void tcEditMerchantProfileWithEmptyFirstName(Hashtable<String, String> data, RESTActions restActions) throws Throwable {
 		
-		tcC612521(data, restActions);
+		tcEditMerchantProfileName(data, restActions);///TBD
 	}
 	
 	/*
@@ -403,7 +403,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 		
 		try {
 			
-			tcC612521(data, restActions);
+			tcEditMerchantProfileName(data, restActions);
 		
 		}
 		catch (Exception e) {
@@ -420,7 +420,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @param restActions
 	 * @throws Throwable
 	 */
-	private static void tcC612521(Hashtable<String, String> data, RESTActions restActions) throws Throwable {
+	private static void tcEditMerchantProfileName(Hashtable<String, String> data, RESTActions restActions) throws Throwable {
 		
 		//Step 1 : 	customer/<customer-id>/user/<user-id> PATCH
 		String url = baseurl+data.get("UserId");
@@ -454,7 +454,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 
 		try {
 					
-			tcC612518(data, restActions);
+			tcEditMerchantProfileWithFirstNameLastName(data, restActions);
 			}
 		catch (Exception e) {
 			catchExceptionE(e);
@@ -470,7 +470,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @param restActions
 	 * @throws Throwable
 	 */
-	private static void tcC612518(Hashtable<String, String> data, RESTActions restActions) throws Throwable {
+	private static void tcEditMerchantProfileWithFirstNameLastName(Hashtable<String, String> data, RESTActions restActions) throws Throwable {
 		
 		//Step 1 : 	customer/<customer-id>/user/<user-id> PATCH
 		String url = baseurl+data.get("UserId");
@@ -497,7 +497,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	public static void verifyEditMerchantProfileWithEmptyLastName(Hashtable<String, String> data, RESTActions restActions) throws Throwable {
 		
 		try {
-		tcC612521(data, restActions);
+		tcEditMerchantProfileName(data, restActions);
 		}
 		catch (Exception e) {
 			catchExceptionE(e);
@@ -517,7 +517,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 		
 		try{
 		
-		tcC612527(data, restActions);
+		tcEditMerchantProfileWithLastNameTooLong(data, restActions);
 				}
 		catch (Exception e) {
 			catchExceptionE(e);
@@ -533,7 +533,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @param restActions
 	 * @throws Throwable
 	 */
-	private static void tcC612527(Hashtable<String, String> data, RESTActions restActions) throws Throwable {
+	private static void tcEditMerchantProfileWithLastNameTooLong(Hashtable<String, String> data, RESTActions restActions) throws Throwable {
 		//Step 1 : 	customer/<customer-id>/user/<user-id> PATCH
 		String url = baseurl+data.get("UserId");
 		updateUserFirstNameLastNameMethod(data, restActions);
@@ -562,7 +562,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 		
 		try {
 			
-			tcC612542(data, restActions);
+			tcEditMerchantProfileWithPhone(data, restActions);
 								
 		}
 		catch (Exception e) {
@@ -585,7 +585,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @throws JsonMappingException
 	 * @throws JsonProcessingException
 	 */
-	private static void tcC612542(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
+	private static void tcEditMerchantProfileWithPhone(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
 			JsonMappingException, JsonProcessingException {
 		//Step 1 : 	update user profile with valid phone
 		String url = urlAndUpdatePhone(data, restActions);
@@ -620,7 +620,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 
 		try {
 		
-			tcC967815(data, restActions);
+			tcEditMerchantProfileWithPhoneNoValueRequired(data, restActions);
 				
 		}
 		catch (Exception e) {
@@ -643,7 +643,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @throws JsonMappingException
 	 * @throws JsonProcessingException
 	 */
-	private static void tcC967815(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
+	private static void tcEditMerchantProfileWithPhoneNoValueRequired(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
 			JsonMappingException, JsonProcessingException {
 		String url = urlAndUpdatePhone(data, restActions);
 
@@ -675,7 +675,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 		
 		try {
 		
-		tcC967816(data, restActions);
+		tcEditMerchantProfileWithPhoneNoValueTooShort(data, restActions);
 		
 		}
 	
@@ -699,7 +699,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @throws JsonMappingException
 	 * @throws JsonProcessingException
 	 */
-	private static void tcC967816(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
+	private static void tcEditMerchantProfileWithPhoneNoValueTooShort(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
 			JsonMappingException, JsonProcessingException {
 		String url = urlAndUpdatePhone(data, restActions);
 				
@@ -731,7 +731,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 		
 		try {
 		
-		tcC967817(data, restActions);			
+		tcEditMerchantProfileWithPhoneNoValueTooLong(data, restActions);			
 			
 		}
 	
@@ -755,7 +755,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @throws JsonMappingException
 	 * @throws JsonProcessingException
 	 */
-	private static void tcC967817(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
+	private static void tcEditMerchantProfileWithPhoneNoValueTooLong(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
 			JsonMappingException, JsonProcessingException {
 		String url = urlAndUpdatePhone(data, restActions);
 				
@@ -787,7 +787,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 		
 		try {
 		
-		tcC967812(data, restActions);			
+		tcEditMerchantProfileWithPhoneNoTypeRequired(data, restActions);			
 			
 		}
 	
@@ -811,7 +811,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @throws JsonMappingException
 	 * @throws JsonProcessingException
 	 */
-	private static void tcC967812(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
+	private static void tcEditMerchantProfileWithPhoneNoTypeRequired(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
 			JsonMappingException, JsonProcessingException {
 		
 		String url = urlAndUpdatePhone(data, restActions);
@@ -847,7 +847,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 		
 		try {
 		
-		tcC967814(data, restActions);			
+		tcEditMerchantProfileWithPhoneNoTypeValueInvalid(data, restActions);			
 			
 		}
 	
@@ -871,7 +871,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @throws JsonMappingException
 	 * @throws JsonProcessingException
 	 */
-	private static void tcC967814(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
+	private static void tcEditMerchantProfileWithPhoneNoTypeValueInvalid(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
 			JsonMappingException, JsonProcessingException {
 		
 		String url = urlAndUpdatePhone(data, restActions);
@@ -907,7 +907,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 
 		try {
 			
-			tcC612556(data, restActions);
+			tcEditMerchantProfileWithPassword(data, restActions);
 			
 		}
 		catch (Exception e) {
@@ -930,7 +930,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @throws JsonMappingException
 	 * @throws JsonProcessingException
 	 */
-	private static void tcC612556(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
+	private static void tcEditMerchantProfileWithPassword(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
 			JsonMappingException, JsonProcessingException {
 		
 		//Step 1 : 	update user profile with valid password
@@ -963,7 +963,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 
 		try {
 			
-			tcC612535(data, restActions);			
+			tcEditMerchantProfileWithPasswordValueRequired(data, restActions);			
 			
 		}
 		
@@ -986,7 +986,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @throws JsonMappingException
 	 * @throws JsonProcessingException
 	 */
-	private static void tcC612535(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
+	private static void tcEditMerchantProfileWithPasswordValueRequired(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
 			JsonMappingException, JsonProcessingException {
 		
 		String url = urlAndUpdatePassword(data, restActions);
@@ -1026,7 +1026,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 
 		try {
 			
-			tcC612536(data, restActions);			
+			tcEditMerchantProfileWithPasswordCannotContainUsername(data, restActions);			
 				
 		}
 		
@@ -1049,7 +1049,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @throws JsonMappingException
 	 * @throws JsonProcessingException
 	 */
-	private static void tcC612536(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
+	private static void tcEditMerchantProfileWithPasswordCannotContainUsername(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
 			JsonMappingException, JsonProcessingException {
 		
 		String url = urlAndUpdatePassword(data, restActions);
@@ -1088,7 +1088,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 
 		try {
 			
-			tcC612537(data, restActions);			
+			tcEditMerchantProfileWithPasswordMustContainDigits(data, restActions);			
 				
 		}
 		
@@ -1111,7 +1111,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @throws JsonMappingException
 	 * @throws JsonProcessingException
 	 */
-	private static void tcC612537(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
+	private static void tcEditMerchantProfileWithPasswordMustContainDigits(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
 			JsonMappingException, JsonProcessingException {
 		
 		String url = urlAndUpdatePassword(data, restActions);
@@ -1154,7 +1154,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 
 		try {
 			
-			tcC612544(data, restActions);		 
+			tcEditMerchantProfileWithSecurityQA(data, restActions);		 
 		
 		}
 		catch (Exception e) {
@@ -1177,7 +1177,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @throws JsonMappingException
 	 * @throws JsonProcessingException
 	 */
-	private static void tcC612544(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
+	private static void tcEditMerchantProfileWithSecurityQA(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
 			JsonMappingException, JsonProcessingException {
 		
 		//Step 1 : 	update user profile with valid security QA's
@@ -1215,7 +1215,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 
 		try {
 			
-		tcC612546(data, restActions);	
+		tcEditMerchantProfileWithSecurityQuestionValueRequired(data, restActions);	
 			
 		}
 		catch (Exception e) {
@@ -1238,7 +1238,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @throws JsonMappingException
 	 * @throws JsonProcessingException
 	 */
-	private static void tcC612546(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
+	private static void tcEditMerchantProfileWithSecurityQuestionValueRequired(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
 			JsonMappingException, JsonProcessingException {
 		
 		String url = urlAndupdateSecurityQA(data, restActions);
@@ -1272,7 +1272,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 
 		try {
 		
-			tcC612549(data, restActions);	
+			tcEditMerchantProfileWithSecurityQuestionValueUnexpected(data, restActions);	
 			
 		}
 		catch (Exception e) {
@@ -1295,7 +1295,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @throws JsonMappingException
 	 * @throws JsonProcessingException
 	 */
-	private static void tcC612549(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
+	private static void tcEditMerchantProfileWithSecurityQuestionValueUnexpected(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
 			JsonMappingException, JsonProcessingException {
 		
 		String url = urlAndupdateSecurityQA(data, restActions);
@@ -1329,7 +1329,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 
 		try {
 			
-		tcC612554(data, restActions);	
+		tcEditMerchantProfileWithSecurityAnswerValueRequired(data, restActions);	
 			
 		}
 		catch (Exception e) {
@@ -1352,7 +1352,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @throws JsonMappingException
 	 * @throws JsonProcessingException
 	 */
-	private static void tcC612554(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
+	private static void tcEditMerchantProfileWithSecurityAnswerValueRequired(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
 			JsonMappingException, JsonProcessingException {
 		
 		String url = urlAndupdateSecurityQA(data, restActions);
@@ -1386,7 +1386,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 		
 		try {
 		
-		tcC612555(data, restActions);			
+		tcEditMerchantProfileWithSecurityAnswerValueTooLong(data, restActions);			
 			
 		}
 	
@@ -1410,7 +1410,7 @@ public class RetailAPIUpdateMerchantDevicePATCH {
 	 * @throws JsonMappingException
 	 * @throws JsonProcessingException
 	 */
-	private static void tcC612555(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
+	private static void tcEditMerchantProfileWithSecurityAnswerValueTooLong(Hashtable<String, String> data, RESTActions restActions) throws Throwable, ClientHandlerException, UniformInterfaceException, IOException, JsonParseException,
 			JsonMappingException, JsonProcessingException {
 		
 		String url = urlAndupdateSecurityQA(data, restActions);
