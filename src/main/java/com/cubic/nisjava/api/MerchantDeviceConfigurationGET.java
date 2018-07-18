@@ -9,12 +9,9 @@ import org.testng.Assert;
 
 import com.cubic.accelerators.RESTActions;
 import com.cubic.accelerators.RESTConstants;
-import com.cubic.nisjava.apiobjects.WSName;
 import com.cubic.backoffice.constants.BackOfficeGlobals;
 import com.cubic.backoffice.utils.BackOfficeUtils;
 import com.cubic.logutils.Log4jUtil;
-import com.cubic.nisjava.apiobjects.CreateMerchantSubaccountRequest;
-import com.cubic.nisjava.apiobjects.CreateMerchantSubaccountResponse;
 import com.cubic.nisjava.apiobjects.Device;
 import com.cubic.nisjava.apiobjects.MerchantDeviceConfigResponse;
 import com.cubic.nisjava.utils.DataUtils;
@@ -230,7 +227,6 @@ public class MerchantDeviceConfigurationGET {
 			gsonDeserializeResp(); 
 			LOG.info("Response: \n" + resp);
 			
-			List<Device> devices = respObj.getDevices();
 			String httpMessage = "WRONG HTTP RESPONSE CODE - EXPECTED 200, FOUND " + clientResponse.getStatus();
 			actions.successReport("Retrieve Device Configuration - No devices returned", "verify  Retrieve Device Configuration - No devices returned");
 			actions.successReport("Sending URL ..+Get method+..  ", url);
