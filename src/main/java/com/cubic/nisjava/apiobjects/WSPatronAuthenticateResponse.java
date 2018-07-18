@@ -1,8 +1,14 @@
 package com.cubic.nisjava.apiobjects;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class WSPatronAuthenticateResponse {
 	private String patronAccountId;
 	private String authCode;
+	@SerializedName("userId")
+	@Expose
+	private String userId;
 	public String getPatronAccountId() {
 		return patronAccountId;
 	}
@@ -22,5 +28,13 @@ public class WSPatronAuthenticateResponse {
 		this.hdr = hdr;
 	}
 	private WSHdr hdr;
+	
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 }
