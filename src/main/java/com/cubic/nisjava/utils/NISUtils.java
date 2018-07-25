@@ -180,4 +180,38 @@ public class NISUtils {
 
 		return contact;
 	}
+	
+	/**
+	 * Utility to build the NIS URL with HTTP or HTTPS using default NIS Environment variables
+	 * @return
+	 */
+	public static String getURL() {
+	    return getURL(BackOfficeGlobals.ENV.NIS_USE_HTTPS, BackOfficeGlobals.ENV.NIS_HOST, BackOfficeGlobals.ENV.NIS_PORT);
+	}
+	
+	/**
+	 * Utility to build the url with the given host and port. useHTTPS is the string version of a boolean value (true or
+	 * false) to indicate if HTTPS will be used or not.
+	 * @param useHTTPS
+	 * @param host
+	 * @param port
+	 * @return
+	 */
+	public static String getURL(String useHTTPS, String host, String port) {
+	    String url = "";
+	    String urlPrefix = "";
+	    
+        if (useHTTPS != null && useHTTPS.equalsIgnoreCase("true")) {
+            LOG.info("##### NIS USING HTTPS");
+            urlPrefix = "https://";
+        }
+        else {     // Anything else
+            urlPrefix = "http://";
+        }
+        
+        url = urlPrefix + host + ":" + port;
+        LOG.info("##### url: " + url);
+        
+        return url;
+	}
 }
