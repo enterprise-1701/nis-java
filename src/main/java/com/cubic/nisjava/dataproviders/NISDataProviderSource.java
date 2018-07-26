@@ -12,10 +12,6 @@ import com.cubic.nisjava.constants.*;
 
 public class NISDataProviderSource extends BaseDataProvider {
 	
-//	static String testDatafilePath;
-//	static String parentElement;
-	
-	
 	@DataProvider(name = AppConstants.DATA_PROVIDER)
     public static Object[][] dataProvider(Method method) throws Throwable {
 	    setAndGenerateData(method);
@@ -46,12 +42,5 @@ public class NISDataProviderSource extends BaseDataProvider {
         setFileExtension(BackOfficeGlobals.FILENAME_EXT_JSON);
         generateData(method);
 	}
-//	public static void generateData(Method method) {
-//		BackOfficeGlobals.ENV.setEnvironmentName();
-//		//testDatafilePath = AppConstants.NIS_TEST_DATA_FOLDER + "/" + method.getDeclaringClass().getSimpleName() + ".json";
-//		testDatafilePath = FileUtils.setTestCaseInputFilePath(AppConstants.TEST_DATA_FOLDER, 
-//				method.getDeclaringClass().getSimpleName(), BackOfficeGlobals.ENV_NAME_FROM_JENKINS);
-//        parentElement = method.getName();
-//	}
-	
+
 }
