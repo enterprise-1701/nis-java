@@ -7,13 +7,13 @@ public class WSContactContainer {
 
 	@SerializedName("contact")
 	@Expose
-	private WSContact_ contact;
+	private WSCustomerContact contact;
 
-	public WSContact_ getContact() {
+	public WSCustomerContact getContact() {
 		return contact;
 	}
 
-	public void setContact(WSContact_ contact) {
+	public void setContact(WSCustomerContact contact) {
 		this.contact = contact;
 	}
 
