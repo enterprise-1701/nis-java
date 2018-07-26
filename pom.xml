@@ -3,8 +3,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.cubic.nisjava</groupId>
-  <artifactId>NISJava</artifactId>
-  <version>1.14.2</version>
+  <artifactId>NISJava-Beta</artifactId>
+  <version>1.15.1</version>
   <packaging>jar</packaging>
 
   <name>NISJava</name>
@@ -109,6 +109,11 @@
   		<version>2.1.0</version>
   	</dependency>
   	<dependency>
+  		<groupId>kafka_2.10</groupId>
+  		<artifactId>kafka_2.10</artifactId>
+  		<version>0.8.0</version>
+  	</dependency>
+  	<dependency>
   		<groupId>kafka-clients</groupId>
   		<artifactId>kafka-clients</artifactId>
   		<version>0.11.0.0</version>
@@ -116,7 +121,7 @@
   	<dependency>
   		<groupId>com.cubic.backofficejava</groupId>
   		<artifactId>BackOfficeJava</artifactId>
-  		<version>1.8.0</version>
+  		<version>1.10</version>
   	</dependency>
   	<dependency>
   		<groupId>com.cubic.vpos</groupId>
@@ -139,18 +144,5 @@
   		<version>4.4.6</version>
   	</dependency>
   </dependencies>
-  	  
-  <distributionManagement>
-	<repository>
-    	<id>central</id>
-        <name>CUBICUSWWWT-releases</name>
-        <url>https://cubicuswwwt.jfrog.io/cubicuswwwt/ww-test-us-virtual/</url>
- 	</repository>
-    <snapshotRepository>
-    	<id>snapshots</id>
-        <name>CUBICUSWWWT-snapshots</name>
-        <url>https://cubicuswwwt.jfrog.io/cubicuswwwt/ww-test-us-virtual/</url>
- 	</snapshotRepository>
-  </distributionManagement>	
-  
+
 </project>
