@@ -120,7 +120,7 @@
   	</dependency>
   	<dependency>
   		<groupId>com.cubic.backofficejava</groupId>
-  		<artifactId>BackOfficeJava-Beta</artifactId>
+  		<artifactId>BackOfficeJava</artifactId>
   		<version>1.10</version>
   	</dependency>
   	<dependency>
