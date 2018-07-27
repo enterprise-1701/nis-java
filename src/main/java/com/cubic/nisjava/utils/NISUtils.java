@@ -268,7 +268,7 @@ public class NISUtils {
 	 * @param password	The password
 	 * @throws Throwable  Thrown if something goes wrong
 	 */
-	private static void prevalidate(RESTActions restActions, Hashtable<String,String> headerTable, String username, String password) throws Throwable {
+	public static void prevalidate(RESTActions restActions, Hashtable<String,String> headerTable, String username, String password) throws Throwable {
 		String sURL = buildPrevalidateURL();
         LOG.info("##### Built URL: " + sURL);
         
@@ -302,7 +302,7 @@ public class NISUtils {
 	 * 
 	 * @return the Prevalidate URL in String form
 	 */
-	private static String buildPrevalidateURL() {
+	public static String buildPrevalidateURL() {
 		return NISUtils.getURL() + "/nis/nwapi/v2/customer/credentials/prevalidate";
 	}
 	
@@ -313,7 +313,7 @@ public class NISUtils {
 	 * @param password  The password to use
 	 * @return  the Prevalidate request body
 	 */
-	private static String buildPrevalidateRequestBody( String username, String password ) {
+	public static String buildPrevalidateRequestBody( String username, String password ) {
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter( sw );
 		pw.println("{");
@@ -330,7 +330,7 @@ public class NISUtils {
 	 * @param headerTable  The HTTP Headers
 	 * @return  The security question
 	 */
-	private static String securityQuestion(RESTActions restActions, Hashtable<String,String> headerTable) {
+	public static String securityQuestion(RESTActions restActions, Hashtable<String,String> headerTable) {
 		String securityQuestionsURL = buildSecurityQuestionsURL();
 		ClientResponse clientResponse = restActions.getClientResponse(securityQuestionsURL, headerTable, null,
 				RESTConstants.APPLICATION_JSON);
@@ -358,7 +358,7 @@ public class NISUtils {
 	 * 
 	 * @return The URL in string format.
 	 */
-	private static String buildSecurityQuestionsURL() {
+	public static String buildSecurityQuestionsURL() {
         return NISUtils.getURL() + "/nis/nwapi/v2/customerservice/securityquestions";
 	}
 	
@@ -373,7 +373,7 @@ public class NISUtils {
 	 * @return  The customer Id
 	 * @throws Throwable  Thrown if something goes wrong
 	 */
-	private static WSCreateCustomerResponse createCustomer(RESTActions restActions, Hashtable<String,String> headerTable, String username, String password, String securityQuestion ) throws Throwable {
+	public static WSCreateCustomerResponse createCustomer(RESTActions restActions, Hashtable<String,String> headerTable, String username, String password, String securityQuestion ) throws Throwable {
 		String createCustomerURL = buildCreateCustomerURL();
 		LOG.info("##### Built URL: " + createCustomerURL);
 		String createCustomerRequestBody = buildCreateCustomerRequestBody( username, password, securityQuestion );
@@ -412,7 +412,7 @@ public class NISUtils {
 	 * 
 	 * @return the Create Customer URL in String form
 	 */
-	private static String buildCreateCustomerURL() {
+	public static String buildCreateCustomerURL() {
         return NISUtils.getURL() + "/nis/nwapi/v2/customer";
 	}
 	
@@ -424,7 +424,7 @@ public class NISUtils {
 	 * @param securityQuestion  The security question
 	 * @return the Create Customer request body in String form
 	 */
-	private static String buildCreateCustomerRequestBody(String username, String password, String securityQuestion) {
+	public static String buildCreateCustomerRequestBody(String username, String password, String securityQuestion) {
 		String email = username;
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter( sw );
@@ -482,7 +482,7 @@ public class NISUtils {
 	 * @param customerIdn  The customer Id
 	 * @throws Throwable  Thrown if something goes wrong
 	 */
-	private static void completeRegistration(RESTActions restActions, Hashtable<String,String> headerTable, String customerId) throws Throwable {
+	public static void completeRegistration(RESTActions restActions, Hashtable<String,String> headerTable, String customerId) throws Throwable {
 
 		String completeRegistrationURL = buildCompleteRegistrationURL( customerId );
 		
@@ -534,7 +534,7 @@ public class NISUtils {
 	 * @param customerId  The customer-id to add to the URL
 	 * @return  The URL in String form
 	 */
-	private static String buildCompleteRegistrationURL( String customerId ) {
+	public static String buildCompleteRegistrationURL( String customerId ) {
         return NISUtils.getURL() + "/nis/nwapi/v2/customer/" + customerId + "/completeregistration";
 	}	
 }
