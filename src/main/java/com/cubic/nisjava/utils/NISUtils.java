@@ -1226,4 +1226,181 @@ public class NISUtils {
 				expectedStatus, actualStatus);
 		restActions.assertTrue(expectedStatus == actualStatus, msg);
 	}
+	
+	/**
+	 * Helper method to build the URL for the API
+	 * /nis/nwapi/v2/customer/<customerId>/contact/<contactId>/password
+	 * 
+	 * @param customerId  The customer Id 
+	 * @param contactId  The contact Id
+	 * @return  The Customer Contact Password API's URL
+	 */
+	public static String buildCustomerContactPasswordURL(String customerId, String contactId) {
+		String prefix = NISUtils.getURL();
+		String uri = "/nis/nwapi/v2/customer/" + customerId + "/contact/" + contactId + "/password";
+		return prefix + uri;
+	}
+
+	/**
+	 * Helper method to build the URL of the API
+	 * /nis/nwapi/v2/customer/<customerId>/contact/<contactId>/password
+	 * 
+	 * @param oldPassword  The old password that is already set
+	 * @param newPassword  The new password
+	 * @return  The Request Body, in String form.
+	 */
+    public static String buildCustomerContactPasswordRequestBody( String oldPassword, String newPassword ) {
+    	StringWriter sw = new StringWriter();
+    	PrintWriter pw = new PrintWriter( sw );
+    	pw.println("{");
+    	if ( null != oldPassword ) {
+    		pw.println("    \"oldpassword\":\"" + oldPassword + "\",");
+    	}
+    	if ( null != newPassword ) {
+    		pw.println("    \"newpassword\":\"" + newPassword + "\"");
+    	}
+    	pw.println("}");
+    	return sw.toString();
+    }
+    
+    /**
+     * This method will reset the password of a customer.
+     * 
+     * @param restActions  The RESTActions object created by the calling @Test method
+     * @param headerTable  A Hashtable of HTTP Header names and values
+     * @param customerId  The Id of the customer
+     * @param contactId  The Id of the customer's contact
+     * @param oldPassword  The existing password value 
+     * @param newPassword  The new password (defined as 'NEW_PASSWORD' in the JSON input file)
+     * @return  The ClientResponse object obtained from restActions.postClientResponse
+     * 
+     * @throws Throwable  Thrown if something goes wrong
+     */
+    public static ClientResponse resetCustomerContactPassword(
+    		RESTActions restActions, Hashtable<String,String> headerTable, 
+    		String customerId, String contactId, String oldPassword, String newPassword ) throws Throwable {
+    	
+		String resetPasswordURL = buildCustomerContactPasswordURL( customerId, contactId );
+		LOG.info("Reset Password URL = " + resetPasswordURL );
+		
+		String requestBody = buildCustomerContactPasswordRequestBody( oldPassword, newPassword );
+		LOG.info("requestBody=" + requestBody);
+		
+		ClientResponse clientResponse = restActions.postClientResponse(
+				resetPasswordURL, requestBody, headerTable, null,
+				RESTConstants.APPLICATION_JSON);
+		
+		return clientResponse;
+    }
+    
+	/**
+	 * Helper method to build the URL of the NWAPI V2 /eula/accept API.
+	 * 
+	 * @see http://10.252.1.21:8201/nis/nwapi/v2/customer/8F941633-659B-E811-80CC-000D3A36F32A/contact/97941633-659B-E811-80CC-000D3A36F32A/eula/accept
+	 * 
+	 * @param customerId  The customer Id used to build the URL
+	 * @param contactId  The contact Id used to build the URL
+	 * @return the URL of the NWAPI V2 /eula/accept API
+	 */
+	public static String buildCustomerContactEULAAcceptURL( String customerId, String contactId ) {
+		String prefix = NISUtils.getURL();
+		String uri = "/nis/nwapi/v2/customer/" + customerId + "/contact/" + contactId + "/eula/accept";
+		return prefix + uri;
+	}
+	
+	/**
+	 * Helper method to build the request body of the NWAPI V2 /eula/accept API.
+	 * <pre>
+	 * {
+	 *   "eulaId":"100",
+	 *   "locale":"en"
+	 * }
+	 * </pre>
+	 * @param eulaId  The EULA Id to use
+	 * @param locale  The locale to use
+	 * @return the request body of the NWAPI V2 /eula/accept API
+	 */
+	public static String buildCustomerContactEULAAcceptRequestBody(String eulaId, String locale) {
+    	StringWriter sw = new StringWriter();
+    	PrintWriter pw = new PrintWriter( sw );
+    	pw.println("{");
+    	if ( null != eulaId ) {
+    		pw.println("    \"eulaId\":\"" + eulaId + "\",");
+    	}
+    	if ( null != locale ) {
+    		pw.println("    \"locale\":\"" + locale + "\"");
+    	}
+    	pw.println("}");
+    	return sw.toString();
+	}
+	
+	/**
+	 * Call the NWAPI V2 /eula/accept API.
+	 * 
+	 * @param restActions  The RESTActions object created by the calling @Test method. 
+	 * @param headerTable  The Hashtable of HTTP Header names/values
+	 * @param customerId  The CustomerId to use
+	 * @param contactId  The ContactId to use
+	 * @param eulaId  The EULA Id to use (see CSX EULA_DOCUMENT table)
+	 * @param locale  The locale to use
+	 * @return  A ClientResponse object created by restActions.postClientResponse
+	 * @throws Throwable  Thrown if something goes wrong
+	 */
+    public static ClientResponse customerContactEULAAccept(
+    		RESTActions restActions, Hashtable<String,String> headerTable, 
+    		String customerId, String contactId, String eulaId, String locale ) throws Throwable {
+    	
+		String resetPasswordURL = buildCustomerContactEULAAcceptURL( customerId, contactId );
+		LOG.info("EULA Accept Password URL = " + resetPasswordURL );
+		
+		String requestBody = buildCustomerContactEULAAcceptRequestBody( eulaId, locale );
+		LOG.info("requestBody=" + requestBody);
+		
+		ClientResponse clientResponse = restActions.postClientResponse(
+				resetPasswordURL, requestBody, headerTable, null,
+				RESTConstants.APPLICATION_JSON);
+		
+		return clientResponse;
+    }
+    
+	/**
+	 * Helper method to build the URL of the NWAPI V2 /eula API.
+	 * 
+	 * @see http://10.252.1.21:8201/nis/nwapi/v2/customer/8F941633-659B-E811-80CC-000D3A36F32A/contact/97941633-659B-E811-80CC-000D3A36F32A/eula
+	 * 
+	 * @param customerId  The customer Id used to build the URL
+	 * @param contactId  The contact Id used to build the URL
+	 * @return the URL of the NWAPI V2 /eula API
+	 */
+	public static String buildCustomerContactEULAGetURL( String customerId, String contactId ) {
+		String prefix = NISUtils.getURL();
+		String uri = "/nis/nwapi/v2/customer/" + customerId + "/contact/" + contactId + "/eula";
+		return prefix + uri;
+	}
+	
+	/**
+	 * A helper method to call the API:
+	 * 
+	 * /nis/nwapi/v2/customer/<customerId>/contact/<contactId>/eula
+	 * 
+	 * testRailId = 123456
+	 * 
+	 * @param restActions  The RESTActions object created by the calling @Test method
+	 * @param headerTable  A Hashtable of HTTP header name/value pairs
+	 * @param customerId  The customerId to build the URL
+	 * @param contactId  The contactId to build the URL
+	 * @return  A ClientResponse object created by restActions.getClientResponse()
+	 */
+	public static ClientResponse customerContactEULAGet(
+			RESTActions restActions, Hashtable<String, String> headerTable,
+			String customerId, String contactId ) {
+		
+		String eulaGetURL = buildCustomerContactEULAGetURL( customerId, contactId );
+		LOG.info("##### Built EULA Get URL: " + eulaGetURL );
+		
+		ClientResponse clientResponse = restActions.getClientResponse(
+				eulaGetURL, headerTable, null, RESTConstants.APPLICATION_JSON);
+		
+		return clientResponse;
+	}	
 }
